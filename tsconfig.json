@@ -1,0 +1,31 @@
+{
+  "extends": "@tsconfig/react-native/tsconfig.json",
+  "baseUrl": ".",
+  "paths": {
+    "@/*": [
+      "./src/*"
+    ],
+    "@api/*": [
+      "src/api/*"
+    ],
+    "@assets/*": [
+      "src/assets/*"
+    ],
+    "@components/*": [
+      "src/components/*"
+    ],
+    "@scenes/*": [
+      "src/scenes/*"
+    ],
+    "@theme/*": [
+      "src/theme/*"
+    ],
+    "@utils/*": [
+      "src/utils/*"
+    ]
+  },
+  "compilerOptions": {
+    "jsx": "react",
+    "allowSyntheticDefaultImports": true
+  }
+}

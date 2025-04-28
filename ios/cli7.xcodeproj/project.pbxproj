@@ -14,6 +14,10 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-cli7-cli7Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-cli7-cli7Tests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		5AD08C8A337F47C091C5FED4 /* SFProText-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0266BA9BF37741FD84DD05CD /* SFProText-Bold.otf */; };
+		539B4CC60B564B98AAA93435 /* SFProText-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 242949DEE4D64754BD953471 /* SFProText-Medium.otf */; };
+		177EBA8B1D654902A7D60889 /* SFProText-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 464F2F9303C94E10AA4DB457 /* SFProText-Regular.otf */; };
+		45F5843D28FB4B2FAA1AB428 /* SFProText-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 17F99E061C624C6294EA5CF5 /* SFProText-Semibold.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +49,10 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = cli7/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-cli7-cli7Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cli7-cli7Tests.release.xcconfig"; path = "Target Support Files/Pods-cli7-cli7Tests/Pods-cli7-cli7Tests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		0266BA9BF37741FD84DD05CD /* SFProText-Bold.otf */ = {isa = PBXFileReference; name = "SFProText-Bold.otf"; path = "../assets/fonts/SFProText-Bold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		242949DEE4D64754BD953471 /* SFProText-Medium.otf */ = {isa = PBXFileReference; name = "SFProText-Medium.otf"; path = "../assets/fonts/SFProText-Medium.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		464F2F9303C94E10AA4DB457 /* SFProText-Regular.otf */ = {isa = PBXFileReference; name = "SFProText-Regular.otf"; path = "../assets/fonts/SFProText-Regular.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		17F99E061C624C6294EA5CF5 /* SFProText-Semibold.otf */ = {isa = PBXFileReference; name = "SFProText-Semibold.otf"; path = "../assets/fonts/SFProText-Semibold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +132,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				5E4FCC40132945F4AE0BF81F /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -149,6 +158,18 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
+		};
+		5E4FCC40132945F4AE0BF81F /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				0266BA9BF37741FD84DD05CD /* SFProText-Bold.otf */,
+				242949DEE4D64754BD953471 /* SFProText-Medium.otf */,
+				464F2F9303C94E10AA4DB457 /* SFProText-Regular.otf */,
+				17F99E061C624C6294EA5CF5 /* SFProText-Semibold.otf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -245,6 +266,10 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				5AD08C8A337F47C091C5FED4 /* SFProText-Bold.otf in Resources */,
+				539B4CC60B564B98AAA93435 /* SFProText-Medium.otf in Resources */,
+				177EBA8B1D654902A7D60889 /* SFProText-Regular.otf in Resources */,
+				45F5843D28FB4B2FAA1AB428 /* SFProText-Semibold.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

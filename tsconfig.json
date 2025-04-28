@@ -25,6 +25,9 @@
     ],
     "@type/*": [
       "src/type/*"
+    ],
+    "@data/*": [
+      "src/data/*"
     ]
   },
   "compilerOptions": {

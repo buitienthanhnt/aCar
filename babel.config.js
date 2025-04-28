@@ -14,7 +14,7 @@ module.exports = {
           '@scenes': './src/scenes',
           '@theme': './src/theme',
           '@utils': './src/utils',
-          '@type': './src/type',
+          '@data': './src/data',
         },
       },
     ],

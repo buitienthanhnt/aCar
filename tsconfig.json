@@ -28,6 +28,9 @@
     ],
     "@data/*": [
       "src/data/*"
+    ],
+    "@style/*": [
+      "src/style/*"
     ]
   },
   "compilerOptions": {

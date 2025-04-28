@@ -5,26 +5,65 @@
  * @format
  */
 
-import React, {FunctionComponent, useCallback, useEffect, useState, PropsWithChildren} from 'react';
+import React, { PropsWithChildren} from 'react';
 import './global.css';
 import {
-  Appearance,
   SafeAreaView,
-  ScrollView,
   StatusBar,
   StyleSheet,
-  Text, TouchableOpacity,
+  Text,
   useColorScheme,
   View,
 } from 'react-native';
 import {
   Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-import Base from "@theme/Base";
+import Base from '@theme/Base';
+import { NavigationContainer } from '@react-navigation/native';
+import {
+    createDrawerNavigator,
+    DrawerContentScrollView,
+    DrawerItemList,
+    DrawerItem,
+} from '@react-navigation/drawer';
+
+function Feed() {
+    return (
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <Text>Feed Screen</Text>
+        </View>
+    );
+}
+
+function Article() {
+    return (
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <Text>Article Screen</Text>
+        </View>
+    );
+}
+
+function CustomDrawerContent(props) {
+    return (
+        <DrawerContentScrollView {...props}>
+            <DrawerItemList {...props} />
+            <DrawerItem label="Help" onPress={() => alert('Link to help')} />
+        </DrawerContentScrollView>
+    );
+}
+
+const Drawer = createDrawerNavigator();
+
+function MyDrawer() {
+    return (
+        <Drawer.Navigator
+            drawerContent={(props) => <CustomDrawerContent {...props} />}
+        >
+            <Drawer.Screen name="Feed" component={Feed} />
+            <Drawer.Screen name="Article" component={Article} />
+        </Drawer.Navigator>
+    );
+}
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -62,6 +101,12 @@ function App(): React.JSX.Element {
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
+
+    return (
+        <NavigationContainer>
+            <MyDrawer />
+        </NavigationContainer>
+    );
 
   return (
     <SafeAreaView style={backgroundStyle}>

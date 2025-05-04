@@ -26,19 +26,14 @@ import {
     DrawerItemList,
     DrawerItem,
 } from '@react-navigation/drawer';
+import CarErrorSearch from "./src/screens/CarErrorSearch";
+import VinDetect from "./src/screens/VinDetect";
 
-function Feed() {
-    return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>Feed Screen</Text>
-        </View>
-    );
-}
 
 function Article() {
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>Article Screen</Text>
+            <Text>Article-[Vin scan] Screen</Text>
         </View>
     );
 }
@@ -59,8 +54,9 @@ function MyDrawer() {
         <Drawer.Navigator
             drawerContent={(props) => <CustomDrawerContent {...props} />}
         >
-            <Drawer.Screen name="Feed" component={Feed} />
-            <Drawer.Screen name="Article" component={Article} />
+            <Drawer.Screen name="Error DTC" component={CarErrorSearch} />
+            <Drawer.Screen name="VIN Detect" component={VinDetect} />
+            <Drawer.Screen name="VIN Scan" component={Article} />
         </Drawer.Navigator>
     );
 }

@@ -1,7 +1,19 @@
 import React, {useCallback, useMemo, useState} from 'react';
-import {ScrollView, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {
+    Keyboard,
+    Pressable,
+    ScrollView,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    TouchableWithoutFeedback,
+    View,
+} from 'react-native';
 // @ts-ignore
 import {upperFirst, sortBy} from 'lodash';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import {Colors} from "react-native/Libraries/NewAppScreen";
+import colors from "tailwindcss/colors";
 
 const errorData: ErrorOto[] = require('@data/oto/error-code.json');
 
@@ -40,49 +52,57 @@ const CarErrorSearch = () => {
     }, [selectedValue]);
 
     return (
-        <View className={'flex-1 bg-ink100 dark:bg-ink600 gap-y-1'}>
-            <View className={'flex-row p-1 justify-between items-center'}>
-                <Text className={'ts-16s text-primaryA500'}>Nhập mã lỗi: </Text>
-                <TextInput
-                    onChangeText={text => {
-                        setValue(text);
-                    }}
-                    style={{
-                        flex: 1,
-                        fontSize: 20,
-                        color: 'blue',
-                        borderWidth: 1,
-                        borderRadius: 4,
-                        borderColor: 'green',
-                    }}
-                />
-            </View>
-            {errors.length > 0 && (
-                <ScrollView contentContainerStyle={{
-                    paddingHorizontal: 2,
-                }}>
-                    {errors.map((e, index) => {
-                        return (
-                            <TouchableOpacity onLongPress={()=>{
-                                onPressError(e);
-                            }}
-                                              key={index}
-                                              className={`flex-row w-full gap-x-1 py-1 rounded border-b ${selectedValue.includes(e.key.toLowerCase()) ? 'bg-violet-300' : ''}`}>
-                                <Text className={'ts-16s text-black900 dark:text-ink100 w-fit'}>
-                                    {e.key}
-                                </Text>
-                                {e.message.en && <Text className={'ts-13s text-orange500 flex-1'}>
-                                    {upperFirst(e.message.en)}
-                                </Text>}
-                                {e.message.vi && <Text className={'ts-14s text-primaryA500 flex-1'}>
-                                    {upperFirst(e.message.vi)}
-                                </Text>}
-                            </TouchableOpacity>
-                        );
-                    })}
-                </ScrollView>
-            )}
-        </View>
+       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+           <View className={'flex-1 bg-ink100 dark:bg-ink600 gap-y-1'}>
+               <View className={'flex-row p-1 justify-between items-center gap-x-1'}>
+                   <Text className={'ts-16s text-primaryA500'}>Nhập mã lỗi: </Text>
+                   <TextInput
+                       onChangeText={text => {
+                           setValue(text);
+                       }}
+                       value={value}
+                       style={{
+                           flex: 1,
+                           fontSize: 20,
+                           color: 'blue',
+                           borderWidth: 1,
+                           borderRadius: 4,
+                           borderColor: 'green',
+                       }}
+                   />
+                   {value && <Pressable className={'p-1'} onPress={()=>{
+                       setValue('');
+                   }}>
+                       <FontAwesome5 name="trash" iconStyle="solid" size={24} color={colors.blue["500"]} />
+                   </Pressable>}
+               </View>
+               {errors.length > 0 && (
+                   <ScrollView contentContainerStyle={{
+                       paddingHorizontal: 2,
+                   }}>
+                       {errors.map((e, index) => {
+                           return (
+                               <TouchableOpacity onLongPress={()=>{
+                                   onPressError(e);
+                               }}
+                                                 key={index}
+                                                 className={`flex-row w-full gap-x-1 py-1 rounded border-b ${selectedValue.includes(e.key.toLowerCase()) ? 'bg-violet-300' : ''}`}>
+                                   <Text className={'ts-16s text-black900 dark:text-ink100 w-fit'}>
+                                       {e.key}
+                                   </Text>
+                                   {e.message.en && <Text className={'ts-13s text-orange500 flex-1'}>
+                                       {upperFirst(e.message.en)}
+                                   </Text>}
+                                   {e.message.vi && <Text className={'ts-14s text-primaryA500 flex-1'}>
+                                       {upperFirst(e.message.vi)}
+                                   </Text>}
+                               </TouchableOpacity>
+                           );
+                       })}
+                   </ScrollView>
+               )}
+           </View>
+       </TouchableWithoutFeedback>
     );
 };
 

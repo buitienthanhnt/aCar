@@ -108,9 +108,9 @@ const CarErrorSearch = () => {
                {/*    Navigate('VIN Detect')*/}
                {/*}}></Button>*/}
                {/*<Text></Text>*/}
-               <Button title={'to WebInApp'} onPress={()=>{
-                   Navigate('WebInApp')
-               }}></Button>
+               {/*<Button title={'to WebInApp'} onPress={()=>{*/}
+               {/*    Navigate('WebInApp')*/}
+               {/*}}></Button>*/}
            </View>
        </TouchableWithoutFeedback>
     );

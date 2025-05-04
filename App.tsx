@@ -8,10 +8,9 @@
 import React, { PropsWithChildren} from 'react';
 import './global.css';
 import {
+    Linking,
     StyleSheet,
-    Text,
     useColorScheme, useWindowDimensions,
-    View,
 } from 'react-native';
 import {
   Colors,
@@ -23,30 +22,23 @@ import {
     DrawerItemList,
     DrawerItem,
 } from '@react-navigation/drawer';
-import CarErrorSearch from './src/screens/CarErrorSearch';
-import VinDetect from './src/screens/VinDetect';
 import {navigationRef} from '@utils/navigate';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import WebInApp from './src/screens/WebInApp';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import ScanOto from "./src/screens/ScanOto";
+
+import ScanOto from '@screens/ScanOto';
+import CarErrorSearch from '@screens/CarErrorSearch';
+import VinDetect from '@screens/VinDetect';
+import WebInApp from '@screens/WebInApp';
 
 const Stack = createNativeStackNavigator();
-
-function Article() {
-    return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>Article-[Vin scan] Screen</Text>
-        </View>
-    );
-}
 
 function CustomDrawerContent(props) {
     return (
         <DrawerContentScrollView {...props}>
             <DrawerItemList {...props} />
-            <DrawerItem label="Help"
-                        onPress={() => alert('Link to help')}
+            <DrawerItem label="Update app"
+                        onPress={() => Linking.openURL('https://play.google.com/store/apps/details?id=com.cli7')}
                         icon={({ focused, color, size }) => <FontAwesome5 color={color} size={size} name={ 'hands-helping'} />} />
         </DrawerContentScrollView>
     );
@@ -63,8 +55,17 @@ function MyDrawer() {
             defaultStatus="closed"
             screenOptions={{
                 drawerType: isLargeScreen ? 'permanent' : 'back',
-                drawerStyle: isLargeScreen ? null : { width: '55%' },
+                drawerStyle: {
+                    width :isLargeScreen ? null :  '55%',
+                    backgroundColor: '#c6cbef',
+                },
                 overlayColor: 'transparent',
+                // drawerActiveTintColor: 'violet',
+                drawerActiveBackgroundColor: '#9dd3c8',
+                drawerLabelStyle: {
+                    // backgroundColor: '#9dd3c8',
+                    // opacity: 0.6,
+                },
             }}
             drawerContent={(props) => <CustomDrawerContent {...props} />}
         >
@@ -91,6 +92,7 @@ function App(): React.JSX.Element {
 
     return (
         <NavigationContainer ref={navigationRef}>
+            {/*https://reactnavigation.org/docs/drawer-navigator/*/}
             {/*https://dev.to/easybuoy/combining-stack-tab-drawer-navigations-in-react-native-with-react-navigation-5-da*/}
             <Stack.Navigator id={undefined}>
                 <Stack.Screen

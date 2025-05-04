@@ -32,6 +32,9 @@
     "@elements/*": [
       "src/elements/*"
     ],
+    "@screens/*": [
+      "src/screens/*"
+    ],
     "@styles/*": [
       "src/styles/*"
     ]

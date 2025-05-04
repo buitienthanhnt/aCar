@@ -16,6 +16,7 @@ module.exports = {
           '@theme': './src/theme',
           '@utils': './src/utils',
           '@elements': './src/elements',
+          '@screens': './src/screens',
           '@type': './src/type',
           '@data': './src/data',
           '@styles': './src/styles',

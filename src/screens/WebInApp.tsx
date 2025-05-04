@@ -29,13 +29,13 @@ const WebInApp = (props: any) => {
                 />
             ) : (
                 <View>
-                    <Button title={'to MyDrawer'} onPress={()=>{
-                        Navigate('MyDrawer')
-                    }}></Button>
-                    {/*<Image*/}
-                    {/*    source={require('@assets/anh-amua.jpg')}*/}
-                    {/*    style={{width: '100%', height: '100%'}}*/}
-                    {/*/>*/}
+                    {/*<Button title={'to MyDrawer'} onPress={()=>{*/}
+                    {/*    Navigate('MyDrawer')*/}
+                    {/*}}></Button>*/}
+                    <Image
+                        source={require('@assets/anh-amua.jpg')}
+                        style={{width: '100%', height: '100%'}}
+                    />
                 </View>
             )}
         </View>

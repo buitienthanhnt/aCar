@@ -18,7 +18,6 @@ import {
 import {
   Colors,
 } from 'react-native/Libraries/NewAppScreen';
-import Base from '@theme/Base';
 import { NavigationContainer } from '@react-navigation/native';
 import {
     createDrawerNavigator,
@@ -32,6 +31,7 @@ import {navigationRef} from '@utils/navigate';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import WebInApp from './src/screens/WebInApp';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import ScanOto from "./src/screens/ScanOto";
 
 const Stack = createNativeStackNavigator();
 
@@ -63,7 +63,7 @@ function MyDrawer() {
     const isLargeScreen = dimensions.width >= 768;
     return (
         <Drawer.Navigator id={undefined}
-            // defaultStatus="closed"
+            defaultStatus="closed"
             screenOptions={{
                 drawerType: isLargeScreen ? 'permanent' : 'back',
                 drawerStyle: isLargeScreen ? null : { width: '55%' },
@@ -78,14 +78,9 @@ function MyDrawer() {
             <Drawer.Screen name="VIN Detect" component={VinDetect}  options={{
                 drawerIcon: ({ focused, color, size }) => <FontAwesome5 color={color} size={size} name={ 'info-circle'} />,
             }}/>
-            <Drawer.Screen name="VIN Scan" component={Article} options={{
+            <Drawer.Screen name="VIN Scan" component={ScanOto} options={{
                 drawerIcon: ({ focused, color, size }) => <FontAwesome5 color={color} size={size} name={ 'camera'} />,
             }}/>
-            {/*<Drawer.Group>*/}
-            {/*    <Drawer.Screen name="WebInApp"  component={WebInApp}  options={{*/}
-            {/*        drawerLabel: 'Decode info content'*/}
-            {/*    }}/>*/}
-            {/*</Drawer.Group>*/}
         </Drawer.Navigator>
     );
 }
@@ -129,7 +124,6 @@ function App(): React.JSX.Element {
 
     return (
         <NavigationContainer ref={navigationRef}>
-            {/*<MyDrawer />*/}
             {/*https://dev.to/easybuoy/combining-stack-tab-drawer-navigations-in-react-native-with-react-navigation-5-da*/}
             <Stack.Navigator id={undefined}>
                 <Stack.Screen
@@ -148,16 +142,6 @@ function App(): React.JSX.Element {
             </Stack.Navigator>
         </NavigationContainer>
     );
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-        <Base />
-    </SafeAreaView>
-  );
 }
 
 const styles = StyleSheet.create({

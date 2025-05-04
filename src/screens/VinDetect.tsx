@@ -10,6 +10,7 @@ import {
 import {formatVinCode, otoCountry, otoYearProduction} from '@utils/helper';
 import {ValueCode} from '@type/DataType';
 import Accordion from '../elements/Accordion';
+import {Navigate} from "@utils/navigate";
 
 type TypeProps = {
     type: string;
@@ -141,9 +142,9 @@ function VinDetect() {
                             <Pressable
                                 onPress={() => {
                                     if (value.textValue.length === 17) {
-                                        // Navigate('WebInApp', {
-                                        //     storeUrl: `https://www.vindecoderz.com/EN/check-lookup/${value.textValue}`,
-                                        // });
+                                        Navigate('WebInApp', {
+                                            storeUrl: `https://www.vindecoderz.com/EN/check-lookup/${value.textValue}`,
+                                        });
                                     }
                                 }}>
                                 <Text

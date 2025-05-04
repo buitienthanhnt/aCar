@@ -8,8 +8,6 @@
 import React, { PropsWithChildren} from 'react';
 import './global.css';
 import {
-    SafeAreaView,
-    StatusBar,
     StyleSheet,
     Text,
     useColorScheme, useWindowDimensions,
@@ -34,7 +32,6 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import ScanOto from "./src/screens/ScanOto";
 
 const Stack = createNativeStackNavigator();
-
 
 function Article() {
     return (
@@ -83,36 +80,6 @@ function MyDrawer() {
             }}/>
         </Drawer.Navigator>
     );
-}
-
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer} className={'bg-red-600'}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
 }
 
 function App(): React.JSX.Element {

@@ -8,12 +8,12 @@
 import React, { PropsWithChildren} from 'react';
 import './global.css';
 import {
-  SafeAreaView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
+    SafeAreaView,
+    StatusBar,
+    StyleSheet,
+    Text,
+    useColorScheme, useWindowDimensions,
+    View,
 } from 'react-native';
 import {
   Colors,
@@ -26,8 +26,14 @@ import {
     DrawerItemList,
     DrawerItem,
 } from '@react-navigation/drawer';
-import CarErrorSearch from "./src/screens/CarErrorSearch";
-import VinDetect from "./src/screens/VinDetect";
+import CarErrorSearch from './src/screens/CarErrorSearch';
+import VinDetect from './src/screens/VinDetect';
+import {navigationRef} from '@utils/navigate';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import WebInApp from './src/screens/WebInApp';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+
+const Stack = createNativeStackNavigator();
 
 
 function Article() {
@@ -42,7 +48,9 @@ function CustomDrawerContent(props) {
     return (
         <DrawerContentScrollView {...props}>
             <DrawerItemList {...props} />
-            <DrawerItem label="Help" onPress={() => alert('Link to help')} />
+            <DrawerItem label="Help"
+                        onPress={() => alert('Link to help')}
+                        icon={({ focused, color, size }) => <FontAwesome5 color={color} size={size} name={ 'hands-helping'} />} />
         </DrawerContentScrollView>
     );
 }
@@ -50,13 +58,34 @@ function CustomDrawerContent(props) {
 const Drawer = createDrawerNavigator();
 
 function MyDrawer() {
+    const dimensions = useWindowDimensions();
+
+    const isLargeScreen = dimensions.width >= 768;
     return (
-        <Drawer.Navigator
+        <Drawer.Navigator id={undefined}
+            // defaultStatus="closed"
+            screenOptions={{
+                drawerType: isLargeScreen ? 'permanent' : 'back',
+                drawerStyle: isLargeScreen ? null : { width: '55%' },
+                overlayColor: 'transparent',
+            }}
             drawerContent={(props) => <CustomDrawerContent {...props} />}
         >
-            <Drawer.Screen name="Error DTC" component={CarErrorSearch} />
-            <Drawer.Screen name="VIN Detect" component={VinDetect} />
-            <Drawer.Screen name="VIN Scan" component={Article} />
+            <Drawer.Screen name="Error DTC" component={CarErrorSearch} options={{
+                drawerLabel: 'Error DTC search',
+                drawerIcon: ({ focused, color, size }) => <FontAwesome5 color={color} size={size} name={focused ? 'search-minus' : 'search-plus'} />,
+            }} />
+            <Drawer.Screen name="VIN Detect" component={VinDetect}  options={{
+                drawerIcon: ({ focused, color, size }) => <FontAwesome5 color={color} size={size} name={ 'info-circle'} />,
+            }}/>
+            <Drawer.Screen name="VIN Scan" component={Article} options={{
+                drawerIcon: ({ focused, color, size }) => <FontAwesome5 color={color} size={size} name={ 'camera'} />,
+            }}/>
+            {/*<Drawer.Group>*/}
+            {/*    <Drawer.Screen name="WebInApp"  component={WebInApp}  options={{*/}
+            {/*        drawerLabel: 'Decode info content'*/}
+            {/*    }}/>*/}
+            {/*</Drawer.Group>*/}
         </Drawer.Navigator>
     );
 }
@@ -99,8 +128,24 @@ function App(): React.JSX.Element {
   };
 
     return (
-        <NavigationContainer>
-            <MyDrawer />
+        <NavigationContainer ref={navigationRef}>
+            {/*<MyDrawer />*/}
+            {/*https://dev.to/easybuoy/combining-stack-tab-drawer-navigations-in-react-native-with-react-navigation-5-da*/}
+            <Stack.Navigator id={undefined}>
+                <Stack.Screen
+                    name="MyDrawer"
+                    // @ts-ignore
+                    component={MyDrawer}
+                    options={{headerShown: false}}
+                />
+
+                <Stack.Screen
+                    name="WebInApp"
+                    // @ts-ignore
+                    component={WebInApp}
+                    options={{headerShown: true, headerTitle: 'car decode'}}
+                />
+            </Stack.Navigator>
         </NavigationContainer>
     );
 

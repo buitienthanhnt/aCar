@@ -1,6 +1,5 @@
 import React, {useCallback, useMemo, useState} from 'react';
 import {
-    Button,
     Keyboard,
     Pressable,
     ScrollView,
@@ -13,10 +12,7 @@ import {
 // @ts-ignore
 import {upperFirst, sortBy} from 'lodash';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import {Colors} from "react-native/Libraries/NewAppScreen";
 import colors from "tailwindcss/colors";
-import {Navigate} from "../utils/navigate";
-import WebInApp from "./WebInApp";
 
 const errorData: ErrorOto[] = require('@data/oto/error-code.json');
 

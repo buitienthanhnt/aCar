@@ -5,7 +5,7 @@
  * @format
  */
 
-import React, { PropsWithChildren} from 'react';
+import React from 'react';
 import './global.css';
 import {
     Linking,
@@ -30,10 +30,13 @@ import ScanOto from '@screens/ScanOto';
 import CarErrorSearch from '@screens/CarErrorSearch';
 import VinDetect from '@screens/VinDetect';
 import WebInApp from '@screens/WebInApp';
+import AppInfo from "./src/screens/AppInfo";
+import CarLib from "./src/screens/CarLib";
+import ListImages from "@screens/ListImages";
 
 const Stack = createNativeStackNavigator();
 
-function CustomDrawerContent(props) {
+function CustomDrawerContent(props: any) {
     return (
         <DrawerContentScrollView {...props}>
             <DrawerItemList {...props} />
@@ -74,10 +77,23 @@ function MyDrawer() {
                 drawerIcon: ({ focused, color, size }) => <FontAwesome5 color={color} size={size} name={focused ? 'search-minus' : 'search-plus'} />,
             }} />
             <Drawer.Screen name="VIN Detect" component={VinDetect}  options={{
-                drawerIcon: ({ focused, color, size }) => <FontAwesome5 color={color} size={size} name={ 'info-circle'} />,
+                drawerIcon: ({ focused, color, size }) => <FontAwesome5 color={color} size={size} name={ 'truck-monster'} />,
             }}/>
+
             <Drawer.Screen name="VIN Scan" component={ScanOto} options={{
-                drawerIcon: ({ focused, color, size }) => <FontAwesome5 color={color} size={size} name={ 'camera'} />,
+              drawerIcon: ({ focused, color, size }) => <FontAwesome5 color={color} size={size} name={ 'camera'} />,
+            }}/>
+
+            <Drawer.Screen name="Car library" component={CarLib} options={{
+                drawerIcon: ({ focused, color, size }) => <FontAwesome5 color={color} size={size} name={ 'satellite-dish'} />,
+            }}/>
+
+            <Drawer.Screen name="Car images" component={ListImages} options={{
+              drawerIcon: ({ focused, color, size }) => <FontAwesome5 color={color} size={size} name={ 'image'} />,
+            }}/>
+
+            <Drawer.Screen name="App info" component={AppInfo} options={{
+                drawerIcon: ({ focused, color, size }) => <FontAwesome5 color={color} size={size} name={ 'info-circle'} />,
             }}/>
         </Drawer.Navigator>
     );

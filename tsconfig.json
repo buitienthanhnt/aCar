@@ -1,46 +1,45 @@
 {
   "extends": "@tsconfig/react-native/tsconfig.json",
-  "baseUrl": ".",
-  "paths": {
-    "@/*": [
-      "./src/*"
-    ],
-    "@api/*": [
-      "src/api/*"
-    ],
-    "@assets/*": [
-      "src/assets/*"
-    ],
-    "@components/*": [
-      "src/components/*"
-    ],
-    "@scenes/*": [
-      "src/scenes/*"
-    ],
-    "@theme/*": [
-      "src/theme/*"
-    ],
-    "@utils/*": [
-      "src/utils/*"
-    ],
-    "@type/*": [
-      "src/type/*"
-    ],
-    "@data/*": [
-      "src/data/*"
-    ],
-    "@elements/*": [
-      "src/elements/*"
-    ],
-    "@screens/*": [
-      "src/screens/*"
-    ],
-    "@styles/*": [
-      "src/styles/*"
-    ]
-  },
   "compilerOptions": {
     "jsx": "react",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ],
+      "@api/*": [
+        "src/api/*"
+      ],
+      "@assets/*": [
+        "src/assets/*"
+      ],
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@scenes/*": [
+        "src/scenes/*"
+      ],
+      "@theme/*": [
+        "src/theme/*"
+      ],
+      "@utils/*": [
+        "src/utils/*"
+      ],
+      "@type/*": [
+        "src/type/*"
+      ],
+      "@data/*": [
+        "src/data/*"
+      ],
+      "@elements/*": [
+        "src/elements/*"
+      ],
+      "@screens/*": [
+        "src/screens/*"
+      ],
+      "@styles/*": [
+        "src/styles/*"
+      ]
+    },
     "allowSyntheticDefaultImports": true
   }
 }

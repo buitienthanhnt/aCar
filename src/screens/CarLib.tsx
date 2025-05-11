@@ -46,7 +46,6 @@ const CarLib: FunctionComponent<CarLibProps> = ()=>{
   }, [listData]);
 
   return(
-
        <View className={'flex-1 bg-ink100 dark:bg-ink700 gap-y-1 p-1'}>
          <Text className={'ts-16s underline text-orange500 '}>Danh sách các lỗi thường gặp:</Text>
          <TouchableWithoutFeedback className={'flex-1'} onPress={()=>{
@@ -62,7 +61,9 @@ const CarLib: FunctionComponent<CarLibProps> = ()=>{
               onChangeText={setSearch}
            />
          </TouchableWithoutFeedback>
-         <ScrollView>
+         <ScrollView contentContainerStyle={{
+           gap: 4,
+         }}>
            {renderData}
          </ScrollView>
        </View>
@@ -72,14 +73,14 @@ const CarLib: FunctionComponent<CarLibProps> = ()=>{
 
 const CarLibItem: FunctionComponent<LibErrorType & {index: number}> = ({type, items, index})=>{
     return(
-        <View className={'p-1 bg-ink400 rounded'}>
+        <View>
             <Text className={'ts-18s text-violet-700'}>{index}.{type.toUpperCase()}: </Text>
             <View className={'gap-y-1'}>
                 {items && items.map((item, index) => (
-                    <View key={index.toString() + type} className={'pl-2 bg-primaryA100 rounded-xl'}>
-                        <Text className={'ts-14b text-black900 dark:text-ink100'}>{item.title}</Text>
-                        <Text className={'ts-15b text-primaryB500'}>Nguyên nhân: {item.error}</Text>
-                        <Text className={'ts-15s text-orange500'}>Giải pháp: {item.fix}</Text>
+                    <View key={index.toString() + type} className={'pl-2 bg-primaryA100 rounded-lg'}>
+                        <Text className={'ts-15b text-primaryB500 dark:text-ink100'}>{item.title}</Text>
+                        <Text className={'ts-14b text-black900'}>Nguyên nhân: {item.error}</Text>
+                        <Text className={'ts-14s text-orange500'}>Giải pháp: {item.fix}</Text>
                     </View>
                 ))}
             </View>

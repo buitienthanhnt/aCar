@@ -46,21 +46,27 @@ const CarLib: FunctionComponent<CarLibProps> = ()=>{
   }, [listData]);
 
   return(
-     <TouchableWithoutFeedback className={'flex-1'} onPress={Keyboard.dismiss}>
-       <View className={'flex-1 bg-ink100 dark:bg-ink700 gap-y-1 p-1 pb-2'}>
+
+       <View className={'flex-1 bg-ink100 dark:bg-ink700 gap-y-1 p-1'}>
          <Text className={'ts-16s underline text-orange500 '}>Danh sách các lỗi thường gặp:</Text>
-         <FormInput key={'search-error'} inputStyle={{
-           borderRadius: 8,
-           borderColor: Colors.primaryA500,
-         }}
-                    numberOfLines={1}
-                    placeholder={'Tìm nhanh'}
-                    onChangeText={setSearch} />
+         <TouchableWithoutFeedback className={'flex-1'} onPress={()=>{
+           Keyboard.dismiss();
+         }}>
+           <FormInput key={'search-error'}
+              inputStyle={{
+               borderRadius: 8,
+               borderColor: Colors.primaryA500,
+              }}
+              numberOfLines={1}
+              placeholder={'Tìm nhanh'}
+              onChangeText={setSearch}
+           />
+         </TouchableWithoutFeedback>
          <ScrollView>
            {renderData}
          </ScrollView>
        </View>
-     </TouchableWithoutFeedback>
+
   );
 };
 

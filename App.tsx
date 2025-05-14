@@ -9,12 +9,9 @@ import React from 'react';
 import './global.css';
 import {
     Linking,
-    StyleSheet,
-    useColorScheme, useWindowDimensions,
+   useWindowDimensions,
 } from 'react-native';
-import {
-  Colors,
-} from 'react-native/Libraries/NewAppScreen';
+// import {Colors} from 'react-native/Libraries/NewAppScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import {
     createDrawerNavigator,
@@ -30,9 +27,9 @@ import ScanOto from '@screens/ScanOto';
 import CarErrorSearch from '@screens/CarErrorSearch';
 import VinDetect from '@screens/VinDetect';
 import WebInApp from '@screens/WebInApp';
-import AppInfo from "./src/screens/AppInfo";
-import CarLib from "./src/screens/CarLib";
-import ListImages from "@screens/ListImages";
+import AppInfo from './src/screens/AppInfo';
+import CarLib from './src/screens/CarLib';
+import ListImages from '@screens/ListImages';
 
 const Stack = createNativeStackNavigator();
 
@@ -40,9 +37,9 @@ function CustomDrawerContent(props: any) {
     return (
         <DrawerContentScrollView {...props}>
             <DrawerItemList {...props} />
-            <DrawerItem label="Update app"
+            <DrawerItem label="Cập nhật"
                         onPress={() => Linking.openURL('https://play.google.com/store/apps/details?id=com.cli7')}
-                        icon={({ focused, color, size }) => <FontAwesome5 color={color} size={size} name={ 'hands-helping'} />} />
+                        icon={({ color, size }) => <FontAwesome5 color={color} size={size} name={ 'hands-helping'} />} />
         </DrawerContentScrollView>
     );
 }
@@ -73,38 +70,48 @@ function MyDrawer() {
             drawerContent={(props) => <CustomDrawerContent {...props} />}
         >
             <Drawer.Screen name="Error DTC" component={CarErrorSearch} options={{
-                drawerLabel: 'Error DTC search',
+                drawerLabel: 'Tra cứu mã lỗi', // Error DTC search
                 drawerIcon: ({ focused, color, size }) => <FontAwesome5 color={color} size={size} name={focused ? 'search-minus' : 'search-plus'} />,
+                headerTitle: 'Tra cứu mã lỗi',
             }} />
             <Drawer.Screen name="VIN Detect" component={VinDetect}  options={{
-                drawerIcon: ({ focused, color, size }) => <FontAwesome5 color={color} size={size} name={ 'truck-monster'} />,
+                drawerLabel: 'Tra cứu mã VIN', // Error DTC search
+                drawerIcon: ({ focused, color, size }) => <FontAwesome5 color={ focused ? 'black' : color} size={size} name={ 'truck-monster'} />,
+                headerTitle: 'Tra cứu mã VIN',
             }}/>
 
             <Drawer.Screen name="VIN Scan" component={ScanOto} options={{
-              drawerIcon: ({ focused, color, size }) => <FontAwesome5 color={color} size={size} name={ 'camera'} />,
+                drawerLabel: 'Quét mã VIN',
+              drawerIcon: ({ focused, color, size }) => <FontAwesome5 color={ focused ? 'black' : color} size={size} name={ 'camera'} />,
+                headerTitle: 'Quét mã VIN',
             }}/>
 
             <Drawer.Screen name="Car library" component={CarLib} options={{
-                drawerIcon: ({ focused, color, size }) => <FontAwesome5 color={color} size={size} name={ 'satellite-dish'} />,
+                drawerLabel: 'Lỗi tổng hợp',
+                drawerIcon: ({ focused, color, size }) => <FontAwesome5 color={ focused ? 'black' : color} size={size} name={ 'satellite-dish'} />,
+                headerTitle: 'Lỗi tổng hợp',
             }}/>
 
             <Drawer.Screen name="Car images" component={ListImages} options={{
-              drawerIcon: ({ focused, color, size }) => <FontAwesome5 color={color} size={size} name={ 'image'} />,
+                drawerLabel: 'Thư viện ảnh',
+              drawerIcon: ({ focused, color, size }) => <FontAwesome5 color={ focused ? 'black' : color} size={size} name={ 'image'} />,
+                headerTitle: 'Thư viện ảnh',
             }}/>
 
             <Drawer.Screen name="App info" component={AppInfo} options={{
-                drawerIcon: ({ focused, color, size }) => <FontAwesome5 color={color} size={size} name={ 'info-circle'} />,
+                drawerLabel: 'Thông tin ứng dụng',
+                drawerIcon: ({ focused, color, size }) => <FontAwesome5 color={ focused ? 'black' : color} size={size} name={ 'info-circle'} />,
+                headerTitle: 'Thông tin ứng dụng',
             }}/>
         </Drawer.Navigator>
     );
 }
 
 function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+  // const isDarkMode = useColorScheme() === 'dark';
+  // const backgroundStyle = {
+  //   backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  // };
 
     return (
         <NavigationContainer ref={navigationRef}>
@@ -128,24 +135,5 @@ function App(): React.JSX.Element {
         </NavigationContainer>
     );
 }
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
 
 export default App;

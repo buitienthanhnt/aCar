@@ -59,6 +59,7 @@ const CarErrorSearch = () => {
                        onChangeText={text => {
                            setValue(text);
                        }}
+                       placeholder={'Tối thiểu 2 ký tự'}
                        value={value}
                        style={{
                            flex: 1,

@@ -106,16 +106,21 @@ const AppInfo = () => {
 
     return (
         <View className={'flex-1 p-3 gap-2 dark:bg-ink600'}>
-            <Text className={'ts-14s text-primaryB300'}>
-                Acar: Là ứng dụng tin tức tổng hợp nhanh chóng và chính xác,trong
-                đó bao gồm nhiều nguồn uy tín khác nhau trong nước và trên thế giới.
+            <Text className={'ts-16s text-primaryB300'}>
+                acar Global: Ứng dụng hỗ trợ kỹ thuật ô tô.
             </Text>
             <Text className={'ts-14s text-primaryB300'}>
-                * Người dùng có thể tùy chọn các chuyên mục hiển thị trên màn hình chính
-                thông qua cài đặt tại: "Cài đặt ứng dụng".
+                * Hỗ trợ tính năng:
             </Text>
-            <Text className={'ts-14s text-primaryB300'}>
-                * Ứng dụng có hỗ trợ tính năng nhận thông báo cho các tin tức chọn lọc.
+
+            <Text className={'ts-14s text-black600 pl-2'}>
+                - Quét, xem thông tin mã vin xe.
+            </Text>
+            <Text className={'ts-14s text-black600 pl-2'}>
+                - Tra mã lỗi thông báo của máy chẩn đoán sự cố.
+            </Text>
+            <Text className={'ts-14s text-black600 pl-2'}>
+                - Tra cứu nhanh các lỗi thường gặp và giải pháp xử lý.
             </Text>
 
             <Text className={'ts-16s text-black900'}>Chủ nhiệm: Bùi Tiến Thành</Text>
@@ -171,7 +176,7 @@ const AppInfo = () => {
 
             <View className={'ts-10s items-center'}>
                 <Text className={'ts-12b text-ink700 dark:text-ink100'}>
-                    {/*version: {EnvConfig.VERSION}*/}
+                    version: {1.1}
                 </Text>
             </View>
         </View>

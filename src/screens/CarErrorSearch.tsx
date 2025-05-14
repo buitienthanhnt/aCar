@@ -1,5 +1,7 @@
 import React, {useCallback, useMemo, useState} from 'react';
 import {
+    Dimensions,
+    Image,
     Keyboard,
     Pressable,
     ScrollView,
@@ -12,7 +14,7 @@ import {
 // @ts-ignore
 import {upperFirst, sortBy} from 'lodash';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import colors from "tailwindcss/colors";
+import colors from 'tailwindcss/colors';
 
 const errorData: ErrorOto[] = require('@data/oto/error-code.json');
 
@@ -73,10 +75,10 @@ const CarErrorSearch = () => {
                    {value && <Pressable className={'p-1'} onPress={()=>{
                        setValue('');
                    }}>
-                       <FontAwesome5 name="trash" iconStyle="solid" size={24} color={colors.blue["500"]} />
+                       <FontAwesome5 name="trash" iconStyle="solid" size={24} color={colors.blue['500']} />
                    </Pressable>}
                </View>
-               {errors.length > 0 && (
+               {errors.length > 0 ? (
                    <ScrollView contentContainerStyle={{
                        paddingHorizontal: 2,
                    }}>
@@ -100,7 +102,9 @@ const CarErrorSearch = () => {
                            );
                        })}
                    </ScrollView>
-               )}
+               ) : (<Image source={require('@assets/errorImage/oto.jpg')}
+                           style={{width: '100%', height: 220, resizeMode: 'cover'}}
+               />)}
                {/*<Button title={'to vin'} onPress={()=>{*/}
                {/*    Navigate('VIN Detect')*/}
                {/*}}></Button>*/}

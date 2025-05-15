@@ -1,12 +1,13 @@
 import Colors from '@styles/color';
-import React, {useCallback, useState} from 'react';
+import React, {useCallback} from 'react';
 import {
+    Alert,
     Dimensions,
     FlatList,
     Image,
     Linking,
     ListRenderItem,
-    Platform,
+    Platform, Share,
     Text,
     TouchableOpacity,
     View,
@@ -85,6 +86,25 @@ const AppInfo = () => {
     const onPressItem = useCallback((item: any) => {
         Linking.openURL(item.url);
     }, []);
+
+    const onShareApp = async () => {
+        try {
+            const result = await Share.share({
+                message: appLink,
+            });
+            if (result.action === Share.sharedAction) {
+                if (result.activityType) {
+                    // shared with activity type of result.activityType
+                } else {
+                    // shared
+                }
+            } else if (result.action === Share.dismissedAction) {
+                // dismissed
+            }
+        } catch (error: any) {
+            Alert.alert(error.message);
+        }
+    };
 
     const renderItem: ListRenderItem<SocialItemType> = useCallback(
         ({item, index}) => {
@@ -167,9 +187,24 @@ const AppInfo = () => {
                 renderItem={renderItem}
                 ListFooterComponent={()=>{
                     return(
-                        <View className={'justify-center items-center p-1'}>
-                            <Image source={require('@assets/a-car.png')} style={{width: Dimensions.get('screen').width/2, height: Dimensions.get('screen').width/2}} />
-                        </View>
+                        <TouchableOpacity onLongPress={onShareApp} className={'justify-center items-center p-2'}>
+                            <View className={'bg-ink100 p-1 rounded-lg'} style={{
+                                shadowColor: Colors.ink400,
+                                shadowOpacity: 0.26,
+                                shadowOffset: { width: 0, height: 4},
+                                shadowRadius: 10,
+                                elevation: 3,
+                                backgroundColor: 'white',
+                            }}>
+                                <Image
+                                    source={require('@assets/a-car.png')}
+                                    style={{
+                                        width: Dimensions.get('screen').width / 2,
+                                        height: Dimensions.get('screen').width / 2,
+                                    }}
+                                />
+                            </View>
+                        </TouchableOpacity>
                     );
                 }}
             />

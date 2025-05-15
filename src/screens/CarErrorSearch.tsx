@@ -103,15 +103,8 @@ const CarErrorSearch = () => {
                        })}
                    </ScrollView>
                ) : (<Image source={require('@assets/errorImage/oto.jpg')}
-                           style={{width: '100%', height: 220, resizeMode: 'cover'}}
+                           style={{width: '100%', height: undefined, resizeMode: 'contain', aspectRatio: 1}}
                />)}
-               {/*<Button title={'to vin'} onPress={()=>{*/}
-               {/*    Navigate('VIN Detect')*/}
-               {/*}}></Button>*/}
-               {/*<Text></Text>*/}
-               {/*<Button title={'to WebInApp'} onPress={()=>{*/}
-               {/*    Navigate('WebInApp')*/}
-               {/*}}></Button>*/}
            </View>
        </TouchableWithoutFeedback>
     );

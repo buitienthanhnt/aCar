@@ -30,6 +30,8 @@ import WebInApp from '@screens/WebInApp';
 import AppInfo from './src/screens/AppInfo';
 import CarLib from './src/screens/CarLib';
 import ListImages from '@screens/ListImages';
+import CarDoc from "@screens/CarDoc";
+import EnViLib from "@screens/EnViLib";
 
 const Stack = createNativeStackNavigator();
 
@@ -98,6 +100,12 @@ function MyDrawer() {
                 headerTitle: 'Thư viện ảnh',
             }}/>
 
+            <Drawer.Screen name="Tong_hop" component={CarDoc} options={{
+                drawerLabel: 'Tổng hợp',
+                drawerIcon: ({ focused, color, size }) => <FontAwesome5 color={ focused ? 'black' : color} size={size} name={ 'signal'} />,
+                headerTitle: 'Thông tin tổng hợp',
+            }}/>
+
             <Drawer.Screen name="App info" component={AppInfo} options={{
                 drawerLabel: 'Thông tin ứng dụng',
                 drawerIcon: ({ focused, color, size }) => <FontAwesome5 color={ focused ? 'black' : color} size={size} name={ 'info-circle'} />,
@@ -130,6 +138,13 @@ function App(): React.JSX.Element {
                     // @ts-ignore
                     component={WebInApp}
                     options={{headerShown: true, headerTitle: 'car decode'}}
+                />
+
+                <Stack.Screen
+                    name="EnViLib"
+                    // @ts-ignore
+                    component={EnViLib}
+                    options={{headerShown: true, headerTitle: 'Từ điển chuyên ngành'}}
                 />
             </Stack.Navigator>
         </NavigationContainer>

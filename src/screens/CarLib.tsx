@@ -1,5 +1,5 @@
 import React, {FunctionComponent, useMemo, useState} from 'react';
-import {Keyboard, ScrollView, Text, TouchableWithoutFeedback, View} from 'react-native';
+import {Keyboard, ScrollView, SectionList, Text, TouchableWithoutFeedback, View} from 'react-native';
 import LibErrror from '@data/oto/lib.json';
 import FormInput from '@elements/FormInput';
 import Colors from '@styles/color';
@@ -35,6 +35,17 @@ const CarLib: FunctionComponent<CarLibProps> = ()=>{
     return groupBy(LibErrror, 'type', []);
   }, [search]);
 
+  const dataFormat = useMemo(()=>{
+      let formatValues = [];
+      for (const property in listData) {
+          formatValues.push({
+              title: property,
+              data: listData[property],
+          });
+      }
+      return formatValues;
+  }, [listData]);
+
   const renderData = useMemo(() =>{
     let renderItem: any = [];
     let index = 1;
@@ -61,11 +72,28 @@ const CarLib: FunctionComponent<CarLibProps> = ()=>{
               onChangeText={setSearch}
            />
          </TouchableWithoutFeedback>
-         <ScrollView contentContainerStyle={{
-           gap: 4,
-         }}>
-           {renderData}
-         </ScrollView>
+           <SectionList
+               sections={dataFormat}
+               keyExtractor={(item, index) => item + index}
+               renderItem={({item}) => (
+                   <View className={'pl-2 bg-primaryA100 rounded-lg '} style={{
+                       marginVertical: 2
+                   }}>
+                       <Text className={'ts-15b text-primaryB500 dark:text-ink100'}>{item.title}</Text>
+                       <Text className={'ts-14b text-black900'}>Nguyên nhân: {item.error}</Text>
+                       <Text className={'ts-14s text-orange500'}>Giải pháp: {item.fix}</Text>
+                   </View>
+               )}
+               renderSectionHeader={({section: {title}}) => (
+                   <Text className={'ts-18s text-violet-700 rounded'} style={{backgroundColor: Colors.green400, paddingTop: 6}}>{title.toUpperCase()}</Text>
+               )}
+           />
+
+         {/*<ScrollView contentContainerStyle={{*/}
+         {/*  gap: 4,*/}
+         {/*}}>*/}
+         {/*  {renderData}*/}
+         {/*</ScrollView>*/}
        </View>
 
   );

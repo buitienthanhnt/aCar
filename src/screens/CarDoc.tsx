@@ -1,10 +1,16 @@
 import React, {FunctionComponent} from 'react';
 import {Text, View} from 'react-native';
+import {Navigate} from '@utils/navigate';
+import LoadingBtn from '@elements/LoadingBtn';
 
-const CarDoc: FunctionComponent<undefined> = ()=>{
+const CarDoc: FunctionComponent<any> = ()=>{
     return(
-        <View className={'bg-ink100 dark:bg-ink600 flex-1'}>
-            <Text>car doc</Text>
+        <View className={'flex-1 p-2 bg-ink200 dark:bg-ink600'}>
+            <LoadingBtn
+                onPress={()=>{Navigate('EnViLib');}}
+                className={'items-center p-1 border border-primaryA500 rounded-lg w-full'}>
+                <Text className={'text-primaryB500 ts-15b'}>Từ điển chuyên ngành</Text>
+            </LoadingBtn>
         </View>
     );
 };

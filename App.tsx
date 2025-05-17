@@ -32,6 +32,7 @@ import CarLib from './src/screens/CarLib';
 import ListImages from '@screens/ListImages';
 import CarDoc from "@screens/CarDoc";
 import EnViLib from "@screens/EnViLib";
+import TechCar from "@screens/TechCar";
 
 const Stack = createNativeStackNavigator();
 
@@ -132,19 +133,23 @@ function App(): React.JSX.Element {
                     component={MyDrawer}
                     options={{headerShown: false}}
                 />
-
                 <Stack.Screen
                     name="WebInApp"
                     // @ts-ignore
                     component={WebInApp}
                     options={{headerShown: true, headerTitle: 'car decode'}}
                 />
-
                 <Stack.Screen
                     name="EnViLib"
                     // @ts-ignore
                     component={EnViLib}
                     options={{headerShown: true, headerTitle: 'Từ điển chuyên ngành'}}
+                />
+                <Stack.Screen
+                    name="TechCar"
+                    // @ts-ignore
+                    component={TechCar}
+                    options={{headerShown: true, headerTitle: 'Tổng hợp kỹ thuật'}}
                 />
             </Stack.Navigator>
         </NavigationContainer>

@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 import {View, Image, Button} from 'react-native';
 import WebView from 'react-native-webview';
-import {Navigate} from "../utils/navigate";
 
 const WebInApp = (props: any) => {
     useEffect(() => {

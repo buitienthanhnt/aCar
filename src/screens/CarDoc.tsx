@@ -25,6 +25,15 @@ const CarDoc: FunctionComponent<any> = ()=>{
                     <FontAwesome5Icon name="chevron-right" size={24} color={Colors.ink900} />
                 </View>
             </LoadingBtn>
+
+            <LoadingBtn
+                onPress={()=>{Navigate('ListImages');}}
+                className={'items-center p-1 border border-ink900 rounded-lg w-full'}>
+                <View className={'flex-row justify-between flex-1'}>
+                    <Text className={'text-ink900 ts-15b'}>Thư viện ảnh</Text>
+                    <FontAwesome5Icon name="chevron-right" size={24} color={Colors.ink900} />
+                </View>
+            </LoadingBtn>
         </ScrollView>
     );
 };

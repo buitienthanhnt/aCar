@@ -2,11 +2,14 @@ import React, {useCallback} from 'react';
 import {FlatList, ListRenderItem, Text, TouchableOpacity, View} from 'react-native';
 import techList from '@data/oto/techcar';
 import Colors from '@styles/color';
+import {Navigate} from '@utils/navigate';
 const TechCar = ()=>{
 
-    const renderItem: ListRenderItem<{ title: string; detail: string }> = useCallback(({item})=>{
+    const renderItem: ListRenderItem<{ title: string; detail: string, remoteSource?: any }> = useCallback(({item})=>{
         return (
-            <TouchableOpacity className={'flex p-1'} style={{backgroundColor: Colors.green200, borderRadius: 6}}>
+            <TouchableOpacity className={'flex p-1'} style={{backgroundColor: Colors.green200, borderRadius: 6}} onPress={()=>{
+            Navigate('TechCarDetail', {remoteSource: item?.remoteSource});
+            }}>
                 <Text className={'ts-15b text-primaryA700 underline'}>{item.title}</Text>
                 <Text className={'ts-14s mt-1'} style={{paddingLeft: 8, color: Colors.ink900}}>{item.detail}</Text>
             </TouchableOpacity>

@@ -33,6 +33,7 @@ import ListImages from '@screens/ListImages';
 import CarDoc from "@screens/CarDoc";
 import EnViLib from "@screens/EnViLib";
 import TechCar from "@screens/TechCar";
+import TechCarDetail from "@screens/TechCarDetail";
 
 const Stack = createNativeStackNavigator();
 
@@ -95,12 +96,6 @@ function MyDrawer() {
                 headerTitle: 'Lỗi tổng hợp',
             }}/>
 
-            <Drawer.Screen name="Car images" component={ListImages} options={{
-                drawerLabel: 'Thư viện ảnh',
-              drawerIcon: ({ focused, color, size }) => <FontAwesome5 color={ focused ? 'black' : color} size={size} name={ 'image'} />,
-                headerTitle: 'Thư viện ảnh',
-            }}/>
-
             <Drawer.Screen name="Tong_hop" component={CarDoc} options={{
                 drawerLabel: 'Tổng hợp',
                 drawerIcon: ({ focused, color, size }) => <FontAwesome5 color={ focused ? 'black' : color} size={size} name={ 'signal'} />,
@@ -150,6 +145,20 @@ function App(): React.JSX.Element {
                     // @ts-ignore
                     component={TechCar}
                     options={{headerShown: true, headerTitle: 'Tổng hợp kỹ thuật'}}
+                />
+
+                <Stack.Screen
+                    name="ListImages"
+                    // @ts-ignore
+                    component={ListImages}
+                    options={{headerShown: true, headerTitle: 'Thư viện ảnh'}}
+                />
+
+                <Stack.Screen
+                    name="TechCarDetail"
+                    // @ts-ignore
+                    component={TechCarDetail}
+                    options={{headerShown: true, headerTitle: 'Chi tiết kỹ thuật'}}
                 />
             </Stack.Navigator>
         </NavigationContainer>

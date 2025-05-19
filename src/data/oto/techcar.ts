@@ -70,6 +70,30 @@ const techList: {
             url: 'https://hocngheoto.edu.vn/cau-tao-nguyen-ly-lam-viec-cua-he-thong-phanh-tren-o-to',
         },
     },
+    {
+        title: 'Động cơ ô tô: cấu tạo, thông số và các lỗi thường gặp',
+        detail: '',
+        remoteSource: {
+            type: 'eac',
+            url: 'https://agmworkshop.vn/dong-co-o-to.html',
+        },
+    },
+    {
+        title: 'Vì sao vô lăng ô tô bị lệch: Nguyên nhân và giải pháp điều chỉnh',
+        detail: '',
+        remoteSource: {
+            type: 'eac',
+            url: 'https://agmworkshop.vn/vi-sao-vo-lang-o-to-bi-lech.html',
+        },
+    },
+    {
+        title: 'Lỗi cá vàng trên ô tô: Vì sao đèn check engine sáng',
+        detail: '',
+        remoteSource: {
+            type: 'eac',
+            url: 'https://agmworkshop.vn/loi-ca-vang-tren-o-to.html',
+        },
+    },
 ];
 
 export default techList;

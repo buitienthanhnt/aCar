@@ -23,7 +23,6 @@ import {navigationRef} from '@utils/navigate';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-
 import ScanOto from '@screens/ScanOto';
 import CarErrorSearch from '@screens/CarErrorSearch';
 import VinDetect from '@screens/VinDetect';
@@ -35,10 +34,9 @@ import CarDoc from '@screens/CarDoc';
 import EnViLib from '@screens/EnViLib';
 import TechCar from '@screens/TechCar';
 import TechCarDetail from '@screens/TechCarDetail';
-import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
-import color from '@styles/color';
 import Dashboard from '@screens/Dashboard';
 import NewLog from "@screens/NewLog";
+import FlashMessage from "react-native-flash-message";
 
 const Stack = createNativeStackNavigator();
 
@@ -134,13 +132,13 @@ function MyTabs() {
                 // headerShown: false,
                 title: 'Trang chủ',
                 headerTitle: 'Tổng hợp bài viết',
-                tabBarIcon: ({ focused, color, size }) => (<FontAwesome5Icon color={color} size={size} name={'cloud-download-alt'} />),
+                tabBarIcon: ({ focused, color, size }) => (<FontAwesome5 color={color} size={size} name={'cloud-download-alt'} />),
             }}/>
 
             <Tab.Screen name="Home" component={MyDrawer} options={{
                 headerShown: false,
                 title: 'Tổng hợp',
-                tabBarIcon: ({ focused, color, size }) => (<FontAwesome5Icon color={color} size={size} name={'globe-asia'} />),
+                tabBarIcon: ({ focused, color, size }) => (<FontAwesome5 color={color} size={size} name={'globe-asia'} />),
             }}/>
         </Tab.Navigator>
     );
@@ -153,65 +151,69 @@ function App(): React.JSX.Element {
   // };
 
     return (
-        <NavigationContainer ref={navigationRef}>
-            {/*https://reactnavigation.org/docs/drawer-navigator/*/}
-            {/*https://dev.to/easybuoy/combining-stack-tab-drawer-navigations-in-react-native-with-react-navigation-5-da*/}
-            <Stack.Navigator id={undefined}>
-                {/*<Stack.Screen*/}
-                {/*    name="MyDrawer"*/}
-                {/*    // @ts-ignore*/}
-                {/*    component={MyDrawer}*/}
-                {/*    options={{headerShown: false}}*/}
-                {/*/>*/}
+        <>
+            <NavigationContainer ref={navigationRef}>
+                {/*https://reactnavigation.org/docs/drawer-navigator/*/}
+                {/*https://dev.to/easybuoy/combining-stack-tab-drawer-navigations-in-react-native-with-react-navigation-5-da*/}
+                <Stack.Navigator id={undefined}>
+                    {/*<Stack.Screen*/}
+                    {/*    name="MyDrawer"*/}
+                    {/*    // @ts-ignore*/}
+                    {/*    component={MyDrawer}*/}
+                    {/*    options={{headerShown: false}}*/}
+                    {/*/>*/}
 
-                <Stack.Screen
-                    name="MyTabs"
-                    // @ts-ignore
-                    component={MyTabs}
-                    options={{headerShown: false}}
-                />
+                    <Stack.Screen
+                        name="MyTabs"
+                        // @ts-ignore
+                        component={MyTabs}
+                        options={{headerShown: false}}
+                    />
 
-                <Stack.Screen
-                    name="WebInApp"
-                    // @ts-ignore
-                    component={WebInApp}
-                    options={{headerShown: true, headerTitle: 'Car decode'}}
-                />
-                <Stack.Screen
-                    name="EnViLib"
-                    // @ts-ignore
-                    component={EnViLib}
-                    options={{headerShown: true, headerTitle: 'Từ điển chuyên ngành'}}
-                />
-                <Stack.Screen
-                    name="TechCar"
-                    // @ts-ignore
-                    component={TechCar}
-                    options={{headerShown: true, headerTitle: 'Tổng hợp kỹ thuật'}}
-                />
+                    <Stack.Screen
+                        name="WebInApp"
+                        // @ts-ignore
+                        component={WebInApp}
+                        options={{headerShown: true, headerTitle: 'Car decode'}}
+                    />
+                    <Stack.Screen
+                        name="EnViLib"
+                        // @ts-ignore
+                        component={EnViLib}
+                        options={{headerShown: true, headerTitle: 'Từ điển chuyên ngành'}}
+                    />
+                    <Stack.Screen
+                        name="TechCar"
+                        // @ts-ignore
+                        component={TechCar}
+                        options={{headerShown: true, headerTitle: 'Tổng hợp kỹ thuật'}}
+                    />
 
-                <Stack.Screen
-                    name="ListImages"
-                    // @ts-ignore
-                    component={ListImages}
-                    options={{headerShown: true, headerTitle: 'Thư viện ảnh'}}
-                />
+                    <Stack.Screen
+                        name="ListImages"
+                        // @ts-ignore
+                        component={ListImages}
+                        options={{headerShown: true, headerTitle: 'Thư viện ảnh'}}
+                    />
 
-                <Stack.Screen
-                    name="TechCarDetail"
-                    // @ts-ignore
-                    component={TechCarDetail}
-                    options={{headerShown: true, headerTitle: 'Chi tiết kỹ thuật'}}
-                />
+                    <Stack.Screen
+                        name="TechCarDetail"
+                        // @ts-ignore
+                        component={TechCarDetail}
+                        options={{headerShown: true, headerTitle: 'Chi tiết kỹ thuật'}}
+                    />
 
-                <Stack.Screen
-                    name="NewLog"
-                    // @ts-ignore
-                    component={NewLog}
-                    options={{headerShown: true, headerTitle: 'Nội dung Chia sẻ'}}
-                />
-            </Stack.Navigator>
-        </NavigationContainer>
+                    <Stack.Screen
+                        name="NewLog"
+                        // @ts-ignore
+                        component={NewLog}
+                        options={{headerShown: true, headerTitle: 'Nội dung Chia sẻ'}}
+                    />
+
+                </Stack.Navigator>
+            </NavigationContainer>
+            <FlashMessage position="top" />
+        </>
     );
 }
 

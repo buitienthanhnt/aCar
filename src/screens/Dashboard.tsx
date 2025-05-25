@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useCallback, useEffect, useMemo, useState} from 'react';
+import React, {createContext, FunctionComponent, useCallback, useContext, useEffect, useMemo, useState} from 'react';
 import {FlatList, ListRenderItem, Text, TouchableOpacity, View} from 'react-native';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import colors from 'tailwindcss/colors';
@@ -19,22 +19,13 @@ type CarLog = {
     userName: string;
 };
 
-const Dashboard = () => {
-    return(
-        <View className={'flex-1 bg-ink100 pt-1 px-1'}>
-            <Content />
-            <AddStatus />
-        </View>
-    );
-};
+const CarLogContext = createContext<any>({});
 
-const Content: FunctionComponent = ()=>{
+const Dashboard = () => {
     const [data, setData] = useState<any>([]);
-    const [searchText, setSearchText] = useState('');
 
     const fecthData = useCallback(async ()=>{
         let carLog: any[] = [];
-
         firestore()
             .collection(aCar.FIRESTORE_KEY)
             .get()
@@ -49,6 +40,23 @@ const Content: FunctionComponent = ()=>{
     useEffect(() => {
         fecthData();
     }, [fecthData]);
+
+    return(
+        <CarLogContext.Provider value={{
+            data: data,
+            loadData: fecthData,
+        }}>
+            <View className={'flex-1 bg-ink100 pt-1 px-1'}>
+                <Content />
+                <AddStatus />
+            </View>
+        </CarLogContext.Provider>
+    );
+};
+
+const Content: FunctionComponent = ()=>{
+    const {data, loadData} = useContext(CarLogContext);
+    const [searchText, setSearchText] = useState('');
 
     const loadedData = useMemo(()=>{
         if (searchText.length < 2){
@@ -89,7 +97,7 @@ const Content: FunctionComponent = ()=>{
             <FlatList
                 data={loadedData}
                 renderItem={renderItem}
-                onRefresh={fecthData}
+                onRefresh={loadData}
                 refreshing={false}
                 ItemSeparatorComponent={() => <View className={'h-1 bg-ink100'} />}
                 ListEmptyComponent={()=>{
@@ -105,20 +113,11 @@ const Content: FunctionComponent = ()=>{
 };
 
 const AddStatus = ()=>{
+    const {loadData} = useContext(CarLogContext);
+
     const onAddContent = useCallback(()=>{
-        Navigate('NewLog');
-        // const now = new Date();
-        // firestore()
-        //     .collection(aCar.FIRESTORE_KEY)
-        //     .add({
-        //         title: 'demo for push on mobile 23445',
-        //         content: 'test for content',
-        //         createdAt: now.toLocaleDateString(),
-        //     })
-        //     .then(() => {
-        //         console.log('acar added!');
-        //     });
-    }, []);
+        Navigate('NewLog', {onSuccess: loadData});
+    }, [loadData]);
 
     return(
         <View className={'justify-center items-center rounded-t-[12px] pb-1 bg-ink400'}>

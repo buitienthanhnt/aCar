@@ -2,15 +2,17 @@ import {Pressable, StyleProp, Text, TextInput, TextStyle, View} from 'react-nati
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import colors from 'tailwindcss/colors';
 import React, {FunctionComponent} from 'react';
+import placeholder from 'lodash/fp/placeholder';
 
 type SearchInputTextProps = {
     value: string;
     onChange: (value: string) => void;
     label?: string;
+    placeholder?: string;
     className?: string;
     inputStyle?: StyleProp<TextStyle>;
 }
-const SearchInputText: FunctionComponent<SearchInputTextProps> = ({className, inputStyle, label, onChange, value})=>{
+const SearchInputText: FunctionComponent<SearchInputTextProps> = ({className, inputStyle, label, onChange, value, placeholder})=>{
     return(
         <View className={`flex-row p-1 justify-between items-center gap-x-1 ${className}`}>
             {label && <Text className={'ts-16s text-primaryA500'}>{label}: </Text>}
@@ -18,7 +20,7 @@ const SearchInputText: FunctionComponent<SearchInputTextProps> = ({className, in
                 onChangeText={text => {
                     onChange(text);
                 }}
-                placeholder={'Tối thiểu 2 ký tự'}
+                placeholder={placeholder || 'Tối thiểu 2 ký tự'}
                 value={value}
                 style={[{
                     flex: 1,

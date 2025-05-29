@@ -120,7 +120,7 @@ const AddStatus = ()=>{
     }, [loadData]);
 
     return(
-        <View className={'justify-center items-center rounded-t-[12px] pb-1 bg-ink400'}>
+        <View className={'justify-center items-center rounded-t-[12px] pb-1'}>
             <View className={'p-1 bg-primaryA50 rounded-full'}>
                 <View className={'p-1 bg-primaryA100 rounded-full'}>
                     <TouchableOpacity className={'p-1 bg-primaryA200 rounded-full'} onPress={onAddContent}>

@@ -37,6 +37,7 @@ import TechCarDetail from '@screens/TechCarDetail';
 import Dashboard from '@screens/Dashboard';
 import NewLog from "@screens/NewLog";
 import FlashMessage from "react-native-flash-message";
+import EnViLibLocal from "@screens/EnViLibLocal";
 
 const Stack = createNativeStackNavigator();
 
@@ -208,6 +209,13 @@ function App(): React.JSX.Element {
                         // @ts-ignore
                         component={NewLog}
                         options={{headerShown: true, headerTitle: 'Nội dung Chia sẻ'}}
+                    />
+
+                    <Stack.Screen
+                        name="EnViLibLocal"
+                        // @ts-ignore
+                        component={EnViLibLocal}
+                        options={{headerShown: true, headerTitle: 'Từ điển tùy chỉnh'}}
                     />
 
                 </Stack.Navigator>

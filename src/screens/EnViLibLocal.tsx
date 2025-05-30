@@ -1,11 +1,12 @@
 import React, {FunctionComponent, useCallback, useEffect, useState} from 'react';
-import {FlatList, ListRenderItem, Text, TouchableOpacity, View} from 'react-native';
+import {Clipboard, FlatList, ListRenderItem, Text, TouchableOpacity, View} from 'react-native';
 import SearchInputText from '@elements/SearchInputText';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LoadingBtn from '@elements/LoadingBtn';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Colors from '@styles/color';
 import colors from 'tailwindcss/colors';
+import {showMessage} from 'react-native-flash-message';
 
 const EnViLibLocal = ()=>{
     const [data, setData] = useState<{en: string; vi: string}[]>([]);
@@ -58,7 +59,7 @@ const AddCom: FunctionComponent<AddComProps> = ({onSuccess})=>{
     return(
         <View>
             <SearchInputText value={en} onChange={setEn} placeholder={'tiếng Anh'} inputStyle={{borderRadius: 8}}/>
-            <View className={'p-1 justify-center items-center bg-green600'}>
+            <View className={'p-1 justify-center items-center'}>
                 <FontAwesome5 color={Colors.primaryA700} size={24} name={'arrow-down'} />
             </View>
             <SearchInputText value={vi} onChange={setVi} placeholder={'tiếng Việt'} inputStyle={{borderRadius: 8}}/>
@@ -83,9 +84,25 @@ const ListTranslate: FunctionComponent<ListTranInterface> = ({data, onRemove})=>
     }> = useCallback(({item, index})=>{
         return(
             <View key={index.toString()} className={'flex-row justify-between'}>
-                <Text className={'flex-1 ts-16s text-primaryB500 p-1'}>{item.en}</Text>
+                <TouchableOpacity className={'flex-1'} onLongPress={()=>{
+                    Clipboard.setString(item.en);
+                    showMessage({
+                        message: `dax sao chep: ${item.en}`,
+                        type: 'info',
+                    });
+                }}>
+                    <Text className={'ts-16s text-primaryB500 p-1'}>{item.en}</Text>
+                </TouchableOpacity>
                <View className={'flex-1 p-1 flex-row justify-between'}>
-                   <Text className={' ts-16s text-primaryA500'}>{item.vi}</Text>
+                   <TouchableOpacity onLongPress={()=>{
+                       Clipboard.setString(item.vi);
+                       showMessage({
+                           message: `dax sao chep: ${item.vi}`,
+                           type: 'success',
+                       });
+                   }}>
+                       <Text className={'ts-16s text-primaryA500'}>{item.vi}</Text>
+                   </TouchableOpacity>
                    <TouchableOpacity onPress={()=>{
                        onRemove?.(item.en);
                    }}>

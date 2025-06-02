@@ -1,10 +1,8 @@
 import React, {useCallback, useMemo, useState} from 'react';
 import {
-    Dimensions,
-    Image,
-    Keyboard,
+    FlatList,
+    Keyboard, ListRenderItem,
     Pressable,
-    ScrollView,
     Text,
     TextInput,
     TouchableOpacity,
@@ -52,6 +50,26 @@ const CarErrorSearch = () => {
         }
     }, [selectedValue]);
 
+    const renderItem: ListRenderItem<ErrorOto> = useCallback(({item, index}) => {
+        return (
+            <TouchableOpacity onLongPress={()=>{
+                onPressError(item);
+            }}
+                              key={index}
+                              className={`flex-row w-full gap-x-1 py-1 rounded border-b ${selectedValue.includes(item.key.toLowerCase()) ? 'bg-violet-300' : ''}`}>
+                <Text className={'ts-16s text-black900 dark:text-ink100 w-fit'}>
+                    {item.key}
+                </Text>
+                {item.message.en && <Text className={'ts-13s text-orange500 flex-1'}>
+                    {upperFirst(item.message.en)}
+                </Text>}
+                {item.message.vi && <Text className={'ts-14s text-primaryA500 flex-1'}>
+                    {upperFirst(item.message.vi)}
+                </Text>}
+            </TouchableOpacity>
+        );
+    }, [onPressError, selectedValue]);
+
     return (
        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
            <View className={'flex-1 bg-ink100 dark:bg-ink600 gap-y-1'}>
@@ -78,33 +96,18 @@ const CarErrorSearch = () => {
                        <FontAwesome5 name="trash" iconStyle="solid" size={24} color={colors.blue['500']} />
                    </Pressable>}
                </View>
-               {errors.length > 0 ? (
-                   <ScrollView contentContainerStyle={{
-                       paddingHorizontal: 2,
-                   }}>
-                       {errors.map((e, index) => {
-                           return (
-                               <TouchableOpacity onLongPress={()=>{
-                                   onPressError(e);
-                               }}
-                                                 key={index}
-                                                 className={`flex-row w-full gap-x-1 py-1 rounded border-b ${selectedValue.includes(e.key.toLowerCase()) ? 'bg-violet-300' : ''}`}>
-                                   <Text className={'ts-16s text-black900 dark:text-ink100 w-fit'}>
-                                       {e.key}
-                                   </Text>
-                                   {e.message.en && <Text className={'ts-13s text-orange500 flex-1'}>
-                                       {upperFirst(e.message.en)}
-                                   </Text>}
-                                   {e.message.vi && <Text className={'ts-14s text-primaryA500 flex-1'}>
-                                       {upperFirst(e.message.vi)}
-                                   </Text>}
-                               </TouchableOpacity>
-                           );
-                       })}
-                   </ScrollView>
-               ) : (<Image source={require('@assets/errorImage/oto.jpg')}
-                           style={{width: '100%', height: undefined, resizeMode: 'contain', aspectRatio: 1}}
-               />)}
+               <FlatList
+                   className={'p-1'}
+                   data={errors.length > 0 ? errors : (value.length > 1 ? [] : errorData.slice(0, 22))}
+                   renderItem={renderItem}
+                   ListEmptyComponent={()=>{
+                       return(
+                           <View className={'w-full p-1 justify-center items-center'}>
+                               <Text className={'ts-16s text-black900 dark:text-ink100'}>Không có giá trị tìm kiếm!</Text>
+                           </View>
+                       );
+                   }}
+                />
            </View>
        </TouchableWithoutFeedback>
     );

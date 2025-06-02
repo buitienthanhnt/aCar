@@ -58,11 +58,11 @@ const AddCom: FunctionComponent<AddComProps> = ({onSuccess})=>{
     }, [en, onSuccess, vi]);
     return(
         <View>
-            <SearchInputText value={en} onChange={setEn} placeholder={'tiếng Anh'} inputStyle={{borderRadius: 8}}/>
+            <SearchInputText value={en} onChange={setEn} placeholder={'Tiếng Anh'} inputStyle={{borderRadius: 8}}/>
             <View className={'p-1 justify-center items-center'}>
                 <FontAwesome5 color={Colors.primaryA700} size={24} name={'arrow-down'} />
             </View>
-            <SearchInputText value={vi} onChange={setVi} placeholder={'tiếng Việt'} inputStyle={{borderRadius: 8}}/>
+            <SearchInputText value={vi} onChange={setVi} placeholder={'Tiếng Việt'} inputStyle={{borderRadius: 8}}/>
            <View className={'p-1'}>
                <LoadingBtn onPress={onAddNewText} className={'w-full border rounded-xl border-primaryA500'} loading={loading}>
                    <Text className={'ts-16m text-violet-900'}>Lưu bản ghi</Text>
@@ -87,7 +87,7 @@ const ListTranslate: FunctionComponent<ListTranInterface> = ({data, onRemove})=>
                 <TouchableOpacity className={'flex-1'} onLongPress={()=>{
                     Clipboard.setString(item.en);
                     showMessage({
-                        message: `dax sao chep: ${item.en}`,
+                        message: `Đã sao chép: ${item.en}`,
                         type: 'info',
                     });
                 }}>
@@ -97,7 +97,7 @@ const ListTranslate: FunctionComponent<ListTranInterface> = ({data, onRemove})=>
                    <TouchableOpacity onLongPress={()=>{
                        Clipboard.setString(item.vi);
                        showMessage({
-                           message: `dax sao chep: ${item.vi}`,
+                           message: `Đã sao chép: ${item.vi}`,
                            type: 'success',
                        });
                    }}>

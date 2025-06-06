@@ -2,7 +2,6 @@ import {Pressable, StyleProp, Text, TextInput, TextStyle, View} from 'react-nati
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import colors from 'tailwindcss/colors';
 import React, {FunctionComponent} from 'react';
-import placeholder from 'lodash/fp/placeholder';
 
 type SearchInputTextProps = {
     value: string;

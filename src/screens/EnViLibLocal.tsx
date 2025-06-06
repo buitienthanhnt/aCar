@@ -1,12 +1,22 @@
-import React, {FunctionComponent, useCallback, useEffect, useState} from 'react';
+import React, {FunctionComponent, useCallback, useEffect, useMemo, useState} from 'react';
 import {Clipboard, FlatList, ListRenderItem, Text, TouchableOpacity, View} from 'react-native';
 import SearchInputText from '@elements/SearchInputText';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LoadingBtn from '@elements/LoadingBtn';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Colors from '@styles/color';
 import colors from 'tailwindcss/colors';
 import {showMessage} from 'react-native-flash-message';
+// @ts-ignore
+import {sortBy} from 'lodash';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import Animated, {
+    Extrapolation,
+    interpolate,
+    runOnJS,
+    useAnimatedStyle,
+    useSharedValue,
+    withTiming,
+} from 'react-native-reanimated';
 
 const EnViLibLocal = ()=>{
     const [data, setData] = useState<{en: string; vi: string}[]>([]);
@@ -78,6 +88,32 @@ interface ListTranInterface{
     onRemove?: (en: string)=> void;
 }
 const ListTranslate: FunctionComponent<ListTranInterface> = ({data, onRemove})=>{
+    const inputWidth = 260;
+    const [search, setSearch] = useState<string>('');
+    const [showSearch, setShowSearch] = useState(false);
+    const searchWidth = useSharedValue(0);
+
+    const onSearchPress = useCallback(()=>{
+        searchWidth.value = withTiming(searchWidth.value === inputWidth ? 0 : inputWidth, {
+            duration: 1800,
+        }, ()=>{
+            runOnJS(setShowSearch)(!showSearch);
+        });
+    }, [searchWidth, showSearch]);
+
+    const animatedStyle = useAnimatedStyle(() => {
+        return {
+            opacity: interpolate(searchWidth.value, [0, inputWidth], [0, 1], Extrapolation.CLAMP),
+        };
+    }, []);
+
+    const activeData = useMemo(() => {
+        if (search.length >= 2){
+            return data.filter(item => item.en.toLowerCase().includes(search.toLowerCase()));
+        }
+        return data;
+    }, [data, search]);
+
     const renderItem: ListRenderItem<{
         en: string,
         vi: string,
@@ -116,14 +152,39 @@ const ListTranslate: FunctionComponent<ListTranInterface> = ({data, onRemove})=>
     return(
         <View className={'flex-1 rounded-t-lg'}>
             <FlatList
-                data={data}
+                data={sortBy(activeData, ['en'])}
                 renderItem={renderItem}
                 ItemSeparatorComponent={()=>{
                     return(
                         <View className={'h-1 bg-ink100'} />
                     );}
                 }
-            />
+             />
+            <View className={'absolute right-1'} style={{
+                right: 10,
+                justifyContent: 'center',
+                top: 0,
+                bottom: 0,
+            }}>
+                <Animated.View className={'rounded flex-row justify-center items-center p-1 gap-x-1'} style={{
+                    // width: searchWidth,
+                }}>
+                    {/*{showSearch && <SearchInputText className={'flex-1'} value={search} onChange={setSearch} placeholder={'Tim nhanh'} inputStyle={{borderRadius: 8}}/>}*/}
+                    {
+                        <Animated.View style={[{
+                            width: searchWidth,
+                            overflow: 'hidden',
+                            display: 'flex',
+                            height: 60,
+                        }, animatedStyle]}>
+                            <SearchInputText className={'flex-1'} value={search} onChange={setSearch} placeholder={'Tìm nhanh'} inputStyle={{borderRadius: 8}}/>
+                        </Animated.View>
+                    }
+                    <TouchableOpacity onPress={onSearchPress}>
+                        <FontAwesome5 name={'search'} color={Colors.primaryA700} size={27}  />
+                    </TouchableOpacity>
+                </Animated.View>
+            </View>
         </View>
     );
 };

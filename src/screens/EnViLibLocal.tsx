@@ -62,6 +62,10 @@ const AddCom: FunctionComponent<AddComProps> = ({onSuccess})=>{
                en: en,
            }];
            await AsyncStorage.setItem('localLib', JSON.stringify(newData));
+           showMessage({
+               message: 'Đã lưu',
+               type: 'success',
+           });
        }catch (e){}
         onSuccess?.();
         setLoading(false);
@@ -87,15 +91,16 @@ interface ListTranInterface{
     vi: string;}[];
     onRemove?: (en: string)=> void;
 }
+
 const ListTranslate: FunctionComponent<ListTranInterface> = ({data, onRemove})=>{
-    const inputWidth = 260;
+    const inputWidth = 260; const timeDuration = 1300;
     const [search, setSearch] = useState<string>('');
     const [showSearch, setShowSearch] = useState(false);
     const searchWidth = useSharedValue(0);
 
     const onSearchPress = useCallback(()=>{
         searchWidth.value = withTiming(searchWidth.value === inputWidth ? 0 : inputWidth, {
-            duration: 1800,
+            duration: timeDuration,
         }, ()=>{
             runOnJS(setShowSearch)(!showSearch);
         });
@@ -154,14 +159,14 @@ const ListTranslate: FunctionComponent<ListTranInterface> = ({data, onRemove})=>
             <FlatList
                 data={sortBy(activeData, ['en'])}
                 renderItem={renderItem}
+                showsVerticalScrollIndicator={false}
                 ItemSeparatorComponent={()=>{
                     return(
                         <View className={'h-1 bg-ink100'} />
                     );}
                 }
              />
-            <View className={'absolute right-1'} style={{
-                right: 10,
+            <View className={'absolute right-[20px]'} style={{
                 justifyContent: 'center',
                 top: 0,
                 bottom: 0,

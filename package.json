@@ -10,6 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "google-translate-api-x": "^10.7.2",
     "nativewind": "^4.1.23",
     "react": "18.3.1",
     "react-native": "0.75.5",

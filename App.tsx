@@ -25,6 +25,9 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import Base from "@theme/Base";
+import {
+    translate,
+} from 'google-translate-api-x';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -57,11 +60,28 @@ function Section({children, title}: SectionProps): React.JSX.Element {
 }
 
 function App(): React.JSX.Element {
+    const [result, setResult] = useState('');
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
+
+    const tranText =  useCallback(async ()=>{
+        try {
+            const tran = await translate(
+                'bạn nghĩ sao về vấn đề này',
+                { to: 'en'}
+            );
+            setResult( typeof tran === 'object' ? ('text' in tran ? (typeof tran?.text === 'string' ? tran?.text : '') : '') : '');
+        }catch (error){
+            console.log('>>>>>>>>>>>>>', error);
+        }
+    }, []);
+
+    useEffect(() => {
+        tranText();
+    }, [tranText]);
 
   return (
     <SafeAreaView style={backgroundStyle}>
@@ -70,6 +90,7 @@ function App(): React.JSX.Element {
         backgroundColor={backgroundStyle.backgroundColor}
       />
         <Base />
+        <Text>{result}</Text>
     </SafeAreaView>
   );
 }

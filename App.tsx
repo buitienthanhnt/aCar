@@ -35,9 +35,9 @@ import EnViLib from '@screens/EnViLib';
 import TechCar from '@screens/TechCar';
 import TechCarDetail from '@screens/TechCarDetail';
 import Dashboard from '@screens/Dashboard';
-import NewLog from "@screens/NewLog";
-import FlashMessage from "react-native-flash-message";
-import EnViLibLocal from "@screens/EnViLibLocal";
+import NewLog from '@screens/NewLog';
+import FlashMessage from 'react-native-flash-message';
+import EnViLibLocal from '@screens/EnViLibLocal';
 
 const Stack = createNativeStackNavigator();
 

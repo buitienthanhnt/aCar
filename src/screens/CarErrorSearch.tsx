@@ -98,7 +98,7 @@ const CarErrorSearch = () => {
                </View>
                <FlatList
                    className={'p-1'}
-                   data={errors.length > 0 ? errors : (value.length > 1 ? [] : errorData.slice(0, 22))}
+                   data={errors.length > 0 ? errors : (value.length > 1 ? [] : errorData.slice(0, 32))}
                    renderItem={renderItem}
                    ListEmptyComponent={()=>{
                        return(

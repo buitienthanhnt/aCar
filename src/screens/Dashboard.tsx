@@ -1,11 +1,17 @@
 import React, {createContext, FunctionComponent, useCallback, useContext, useEffect, useMemo, useState} from 'react';
-import {FlatList, ListRenderItem, Text, TouchableOpacity, View} from 'react-native';
+import {FlatList, ListRenderItem, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import colors from 'tailwindcss/colors';
 import firestore from '@react-native-firebase/firestore';
 import Colors from '@styles/color';
 import {Navigate} from '@utils/navigate';
 import SearchInputText from '@elements/SearchInputText';
+
+// https://www.npmjs.com/package/google-translate-api-x
+import {
+    translate,
+} from 'google-translate-api-x';
+
 
 export enum aCar {
     FIRESTORE_KEY = 'carLog',
@@ -67,25 +73,7 @@ const Content: FunctionComponent = ()=>{
 
     const renderItem: ListRenderItem<CarLog> = useCallback(({item})=>{
         return(
-            <View className={'bg-primaryA200 p-1 rounded-xl shadow-sm'} style={{
-                elevation: 3,
-                shadowColor: Colors.primaryA200,
-                shadowOpacity: 0.4,
-                shadowOffset: { width: 4, height: 4},
-                shadowRadius: 10,
-            }}>
-                <Text className={'ts-16s text-ink100 underline'}>{item.title}</Text>
-                {item.causal &&
-                    <Text className={'ts-15b text-green-700 pl-1 mt-1'}>{item.causal}</Text>
-                }
-                {item.repair &&
-                    <Text className={'ts-14b pl-1'}>{item.repair}</Text>
-                }
-                <View className={'justify-between flex-row items-center'}>
-                    <Text className={'ts-14s text-right text-orange500'}>{item.userName || ''}</Text>
-                    <Text className={'ts-14s text-right text-violet-700'}>{item.createdAt}</Text>
-                </View>
-            </View>
+           <ContentItem item={item} />
         );
     }, []);
 
@@ -108,6 +96,48 @@ const Content: FunctionComponent = ()=>{
                     );
                 }}
              />
+        </View>
+    );
+};
+
+const ContentItem: FunctionComponent<any> = ({item})=>{
+    const [result, setResult] = useState('');
+
+    const tranText =  useCallback(async ()=>{
+       try {
+           const tran = await translate(
+               item.title,
+               { to: 'en'}
+           );
+           setResult( typeof tran === 'object' ? ('text' in tran ? (typeof tran?.text === 'string' ? tran?.text : '') : '') : '');
+       }catch (error){
+           console.log('>>>>>>>>>>>>>', error);
+       }
+    }, [item.title]);
+
+    useEffect(() => {
+        tranText();
+    }, [tranText]);
+
+    return(
+        <View className={'bg-primaryA200 p-1 rounded-xl shadow-sm'} style={{
+            elevation: 3,
+            shadowColor: Colors.primaryA200,
+            shadowOpacity: 0.4,
+            shadowOffset: { width: 4, height: 4},
+            shadowRadius: 10,
+        }}>
+            <Text className={'ts-16s text-ink100 underline'}>{item.title} ({result})</Text>
+            {item.causal &&
+                <Text className={'ts-15b text-green-700 pl-1 mt-1'}>{item.causal}</Text>
+            }
+            {item.repair &&
+                <Text className={'ts-14b pl-1'}>{item.repair}</Text>
+            }
+            <View className={'justify-between flex-row items-center'}>
+                <Text className={'ts-14s text-right text-orange500'}>{item.userName || ''}</Text>
+                <Text className={'ts-14s text-right text-violet-700'}>{item.createdAt}</Text>
+            </View>
         </View>
     );
 };

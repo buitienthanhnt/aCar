@@ -6,7 +6,7 @@
  */
 
 import { NewAppScreen } from '@react-native/new-app-screen';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { StatusBar, StyleSheet, Text, useColorScheme, View } from 'react-native';
 
 function App() {
@@ -14,7 +14,7 @@ function App() {
 
   useEffect(()=>{
     console.log(123);
-    
+
   }, []);
 
   return (
@@ -38,5 +38,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
 });
+
+// Get-Process -Id (Get-NetTCPConnection -LocalPort 8081).OwningProcess
 
 export default App;

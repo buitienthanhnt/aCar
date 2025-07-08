@@ -1,3 +1,31 @@
 {
-  "extends": "@react-native/typescript-config"
+  "extends": "@react-native/typescript-config",
+  "baseUrl": ".",
+  "paths": {
+    "@/*": [
+      "./src/*"
+    ],
+    "@api/*": [
+      "src/api/*"
+    ],
+    "@assets/*": [
+      "src/assets/*"
+    ],
+    "@components/*": [
+      "src/components/*"
+    ],
+    "@scenes/*": [
+      "src/scenes/*"
+    ],
+    "@theme/*": [
+      "src/theme/*"
+    ],
+    "@utils/*": [
+      "src/utils/*"
+    ]
+  },
+  "compilerOptions": {
+    "jsx": "react",
+    "allowSyntheticDefaultImports": true
+  }
 }

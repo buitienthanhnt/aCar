@@ -5,6 +5,8 @@
  * @format
  */
 
+import "./global.css"
+
 import { NewAppScreen } from '@react-native/new-app-screen';
 import React, { useEffect } from 'react';
 import { StatusBar, StyleSheet, Text, useColorScheme, View } from 'react-native';

@@ -5,8 +5,10 @@
  * @format
  */
 
+import "./global.css"
+
 import { NewAppScreen } from '@react-native/new-app-screen';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { StatusBar, StyleSheet, Text, useColorScheme, View } from 'react-native';
 
 function App() {
@@ -14,7 +16,7 @@ function App() {
 
   useEffect(()=>{
     console.log(123);
-    
+
   }, []);
 
   return (

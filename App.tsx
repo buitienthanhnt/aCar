@@ -11,6 +11,11 @@ import { NewAppScreen } from '@react-native/new-app-screen';
 import React, { useEffect } from 'react';
 import { StatusBar, StyleSheet, Text, useColorScheme, View } from 'react-native';
 
+import {
+  Camera,
+  PhotoRecognizer,
+} from '@solutionsmedias360/react-native-vision-camera-text-recognition';
+
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
 
@@ -28,6 +33,7 @@ function App() {
         fontSize: 20,
         fontWeight: '700'
       }}>123 zxc</Text>
+      <Text>demo for camera</Text>
     </View>
   );
 }

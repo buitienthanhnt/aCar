@@ -1,0 +1,9 @@
+1.loi khi run-build bao vision-camera va worklets-core thi:
+
+cd android =>
+.\gradlew clean  & xoa thu muc .grade
+
+
+
+2. Mismatch between JavaScript code version and Reanimated Babel plugin version
+npx react-native start --reset-cache

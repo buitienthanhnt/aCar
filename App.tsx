@@ -5,285 +5,225 @@
  * @format
  */
 
-import "./global.css"
-
-import { NewAppScreen } from '@react-native/new-app-screen';
-
-import React, {useCallback, useMemo, useState, useEffect} from 'react';
-import {useCameraDevice} from 'react-native-vision-camera';
+import React from 'react';
+import './global.css';
 import {
-  Camera,
-  PhotoRecognizer,
-} from '@solutionsmedias360/react-native-vision-camera-text-recognition';
-
-import {
-  Clipboard,
-  Keyboard,
-  Pressable,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableWithoutFeedback,
-  useColorScheme,
-  StatusBar,
-  View, TouchableOpacity,
+  Linking, StatusBar,
+  useWindowDimensions,
 } from 'react-native';
-import {launchImageLibrary} from 'react-native-image-picker';
-import ImageViewer from 'react-native-image-zoom-viewer';
-import {PERMISSIONS} from 'react-native-permissions';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import {showMessage} from 'react-native-flash-message';
+// import {Colors} from 'react-native/Libraries/NewAppScreen';
+import { NavigationContainer } from '@react-navigation/native';
+import {
+    createDrawerNavigator,
+    DrawerContentScrollView,
+    DrawerItemList,
+    DrawerItem,
+} from '@react-navigation/drawer';
+import {navigationRef} from '@utils/navigate';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import ScanOto from '@screens/ScanOto';
+import CarErrorSearch from '@screens/CarErrorSearch';
+import VinDetect from '@screens/VinDetect';
+import WebInApp from '@screens/WebInApp';
+import AppInfo from './src/screens/AppInfo';
+import CarLib from './src/screens/CarLib';
+import ListImages from '@screens/ListImages';
+import CarDoc from '@screens/CarDoc';
+import EnViLib from '@screens/EnViLib';
+import TechCar from '@screens/TechCar';
+import TechCarDetail from '@screens/TechCarDetail';
+import Dashboard from '@screens/Dashboard';
+import NewLog from '@screens/NewLog';
+import FlashMessage from 'react-native-flash-message';
+import EnViLibLocal from '@screens/EnViLibLocal';
 
-function App() {
-  const isDarkMode = useColorScheme() === 'dark';
+const Stack = createNativeStackNavigator();
 
-  useEffect(()=>{
-    console.log(123);
-
-  }, []);
-
-  return (
-   <View style={styles.container}>
-     <View className={'h-10'}>
-
-     </View>
-     <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-     <ScanOto></ScanOto>
-   </View>
-  )
-
-  return (
-    <View style={styles.container}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      {/* <NewAppScreen templateFileName="App.tsx" /> */}
-      <Text style={{
-        color: 'blue',
-        fontSize: 20,
-        fontWeight: '700'
-      }}>123 zxc</Text>
-      <Text>demo for camera</Text>
-    </View>
-  );
+function CustomDrawerContent(props: any) {
+    return (
+        <DrawerContentScrollView {...props}>
+            <DrawerItemList {...props} />
+            <DrawerItem label="Cập nhật"
+                        onPress={() => Linking.openURL('https://play.google.com/store/apps/details?id=com.cli7')}
+                        icon={({ color, size }) => <FontAwesome5 color={color} size={size} name={ 'hands-helping'} />} />
+        </DrawerContentScrollView>
+    );
 }
 
-function ScanOto() {
-  const [flash, setFlash] = useState<'off' | 'on' | undefined>('off');
-  const [activeCam, setActiveCam] = useState<number>(0);
-  const [imagePath, setImagePath] = useState<string>('');
-  const [textSearch, setTextSearch] = useState<string>();
-  const device = useCameraDevice('back');
+const Drawer = createDrawerNavigator();
 
-  /**
-   * chọn ảnh từ thư viện ảnh trên mobile
-   */
-  const pickImage = useCallback(async () => {
-    Keyboard.dismiss();
-    // No permissions request is necessary for launching the image library
-    let result = await launchImageLibrary({
-      // @ts-ignore
-      mediaTypes: 'photo',
-      allowsEditing: true,
-      quality: 1,
-      selectionLimit: 0,
-    });
+function MyDrawer() {
+    const dimensions = useWindowDimensions();
 
-    if (!result.didCancel) {
-      const target_image: string[] = [];
-      // @ts-ignore
-      result?.assets.map(imageItem => {
-        // @ts-ignore
-        target_image.push(imageItem?.uri.toString());
-      });
-      if (!target_image.length) {
-        return;
-      }
-      setImagePath(target_image[0]);
-      try {
-        const Textval = await PhotoRecognizer({
-          uri: target_image[0],
-          orientation: 'portrait',
-        });
-
-        Textval.resultText && setTextSearch(Textval.resultText);
-      } catch (error) {
-        showMessage({
-          type: 'warning',
-          message: 'không xác định!',
-        });
-      }
-    }
-  }, []);
-
-  /**
-   * mở máy ảnh
-   */
-  const onPressCam = useCallback(async () => {
-    setActiveCam(old => (old === 0 ? 1 : old === 1 ? 2 : 1));
-  }, []);
-
-  /**
-   * tính giá trị của chuỗi đã tìm.
-   */
-  const value = useMemo(() => {
-    if (!textSearch) {
-      return {} as any;
-    }
-  }, [textSearch]);
-
-  const textDetail = useMemo(() => {
-    return null;
-  }, []);
-
-  return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View className={'flex-1 p-1 bg-ink100 dark:bg-ink600 gap-y-1'}>
-        {device && activeCam !== 0 && (
-          <Camera
-            torch={flash}
-            device={device}
-            isActive={activeCam === 1}
-            options={{
-              language: 'latin',
+    const isLargeScreen = dimensions.width >= 768;
+    return (
+        <Drawer.Navigator id={undefined}
+            defaultStatus="closed"
+            screenOptions={{
+                drawerType: isLargeScreen ? 'permanent' : 'back',
+                drawerStyle: {
+                    width :isLargeScreen ? null :  '55%',
+                    backgroundColor: '#c6cbef',
+                },
+                overlayColor: 'transparent',
+                // drawerActiveTintColor: 'violet',
+                drawerActiveBackgroundColor: '#9dd3c8',
+                drawerLabelStyle: {
+                    // backgroundColor: '#9dd3c8',
+                    // opacity: 0.6,
+                },
             }}
-            mode={'recognize'}
-            callback={(d: any) => {
-              if (
-                !d ||
-                (typeof d === 'object' && !d?.resultText) ||
-                d.length < 15 ||
-                d.resultText.length < 15
-              ) {
-                return;
-              }
-              setTextSearch(typeof d === 'string' ? d : d?.resultText);
-            }}
-          />
-        )}
-        <View className={'flex-row justify-between'}>
-          <TouchableOpacity
-            className={'p-2 bg-orange300 rounded-lg'}
-            onPress={pickImage}>
-            <Text className={'ts-16s text-ink900'}>Chọn ảnh từ thư viện</Text>
-          </TouchableOpacity>
+            drawerContent={(props) => <CustomDrawerContent {...props} />}
+        >
+            <Drawer.Screen name="Error DTC" component={CarErrorSearch} options={{
+                drawerLabel: 'Tra cứu mã lỗi', // Error DTC search
+                drawerIcon: ({ focused, color, size }) => <FontAwesome5 color={color} size={size} name={focused ? 'search-minus' : 'search-plus'} />,
+                headerTitle: 'Tra cứu mã lỗi',
+            }} />
+            <Drawer.Screen name="VIN Detect" component={VinDetect}  options={{
+                drawerLabel: 'Tra cứu mã VIN', // Error DTC search
+                drawerIcon: ({ focused, color, size }) => <FontAwesome5 color={ focused ? 'black' : color} size={size} name={ 'truck-monster'} />,
+                headerTitle: 'Tra cứu mã VIN',
+            }}/>
 
-          <View className={'flex-row gap-x-2'}>
-            {activeCam === 1 && (
-              <TouchableOpacity
-                className={'p-0'}
-                style={{padding: 4}}
-                onPress={() => {
-                  setFlash(old => (old === 'on' ? 'off' : 'on'));
-                }}>
-                <Icon
-                  name={'flash'}
-                  size={34}
-                />
-              </TouchableOpacity>
-            )}
+            <Drawer.Screen name="VIN Scan" component={ScanOto} options={{
+                drawerLabel: 'Quét mã VIN',
+              drawerIcon: ({ focused, color, size }) => <FontAwesome5 color={ focused ? 'black' : color} size={size} name={ 'camera'} />,
+                headerTitle: 'Quét mã VIN',
+            }}/>
 
-            <TouchableOpacity
-              className={'p-2 bg-primaryA500 rounded-lg'}
-              onPress={onPressCam}>
-              <Text className={'ts-16s text-ink100'}>
-                {activeCam !== 1 ? 'Dùng máy ảnh' : 'Tắt máy ảnh'}
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View className={'p-1 border border-primaryA500 rounded-lg gap-y-1'}>
-          <Pressable
-            onLongPress={() => {
-              value?.textValue && Clipboard.setString(value?.textValue);
-              showMessage({
-                type: 'success',
-                message: 'Đã sao chép!',
-              });
-            }}>
-            {textDetail}
-          </Pressable>
+            <Drawer.Screen name="Car library" component={CarLib} options={{
+                drawerLabel: 'Lỗi tổng hợp',
+                drawerIcon: ({ focused, color, size }) => <FontAwesome5 color={ focused ? 'black' : color} size={size} name={ 'satellite-dish'} />,
+                headerTitle: 'Lỗi tổng hợp',
+            }}/>
 
-          {value?.textValue && (
-            <TextInput
-              maxLength={17}
-              defaultValue={value?.textValue}
-              onChangeText={text => {
-                setTextSearch(text);
-              }}
-              style={{
-                fontSize: 20,
-                color: 'blue',
-                borderWidth: 1,
-                borderRadius: 8,
-                borderColor: 'green',
-              }}
-            />
-          )}
+            <Drawer.Screen name="Tong_hop" component={CarDoc} options={{
+                drawerLabel: 'Tổng hợp',
+                drawerIcon: ({ focused, color, size }) => <FontAwesome5 color={ focused ? 'black' : color} size={size} name={ 'signal'} />,
+                headerTitle: 'Thông tin tổng hợp',
+            }}/>
 
-          <View className={'flex-row items-baseline'}>
-            <Text className={'ts-16s text-green600 leading-5'}>
-              Độ dài chuỗi: {value?.len}
-            </Text>
-            {value?.textValue && (
-              <Pressable
-                onPress={() => {
-                  if (value.textValue.length === 17) {
-                  }
-                }}>
-                <Text
-                  className={`ts-12s ${
-                    value.textValue.length === 17
-                      ? 'underline text-primaryB500'
-                      : 'text-red-800'
-                  }`}>
-                  {value.textValue.length === 17
-                    ? 'xem chi tiết'
-                    : `(Thiếu: ${
-                      17 - value?.len || 0
-                    } ký tự, hãy kiểm tra lại)`}
-                </Text>
-              </Pressable>
-            )}
-          </View>
-
-          <View className={'flex-row justify-between'}>
-            <Text className={'ts-16s text-primaryA500'}>
-              Ký tự lựa chọn: {value?.value}
-            </Text>
-            {value?.index && (
-              <Text className={'ts-16s text-orange500'}>
-                Thứ tự lựa chọn: {value?.index + 1}
-              </Text>
-            )}
-          </View>
-          <Text className={'ts-18s text-primaryB500 underline'}>
-            Năm sản xuất: {value?.yearValue}
-          </Text>
-        </View>
-        {!!imagePath && (
-          <ImageViewer
-            imageUrls={[
-              {
-                url: imagePath,
-                props: {},
-                freeHeight: true,
-              },
-            ]}
-          />
-        )}
-      </View>
-    </TouchableWithoutFeedback>
-  );
+            <Drawer.Screen name="App info" component={AppInfo} options={{
+                drawerLabel: 'Thông tin ứng dụng',
+                drawerIcon: ({ focused, color, size }) => <FontAwesome5 color={ focused ? 'black' : color} size={size} name={ 'info-circle'} />,
+                headerTitle: 'Thông tin ứng dụng',
+            }}/>
+        </Drawer.Navigator>
+    );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 20,
-    paddingLeft: 8,
-    justifyContent: 'center'
-  },
-});
+// const RootTabs = createBottomTabNavigator({
+//     screenOptions: {
+//         animation: 'fade',
+//     },
+//     screens: {
+//         MyDrawer: MyDrawer,
+//     },
+// });
 
-// Get-Process -Id (Get-NetTCPConnection -LocalPort 8081).OwningProcess
+const Tab = createBottomTabNavigator();
+
+function MyTabs() {
+    return (
+        <Tab.Navigator>
+            <Tab.Screen name="Dashboard" component={Dashboard} options={{
+                // headerShown: false,
+                title: 'Trang chủ',
+                headerTitle: 'Tổng hợp bài viết',
+                tabBarIcon: ({ focused, color, size }) => (<FontAwesome5 color={color} size={size} name={'cloud-download-alt'} />),
+            }}/>
+
+            <Tab.Screen name="Home" component={MyDrawer} options={{
+                headerShown: false,
+                title: 'Tổng hợp',
+                tabBarIcon: ({ focused, color, size }) => (<FontAwesome5 color={color} size={size} name={'globe-asia'} />),
+            }}/>
+        </Tab.Navigator>
+    );
+}
+
+function App(): React.JSX.Element {
+  // const isDarkMode = useColorScheme() === 'dark';
+  // const backgroundStyle = {
+  //   backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  // };
+
+    return (
+        <>
+          <StatusBar barStyle="dark-content" backgroundColor="blue" />
+            <NavigationContainer ref={navigationRef}>
+                {/*https://reactnavigation.org/docs/drawer-navigator/*/}
+                {/*https://dev.to/easybuoy/combining-stack-tab-drawer-navigations-in-react-native-with-react-navigation-5-da*/}
+                <Stack.Navigator id={undefined}>
+                    {/*<Stack.Screen*/}
+                    {/*    name="MyDrawer"*/}
+                    {/*    // @ts-ignore*/}
+                    {/*    component={MyDrawer}*/}
+                    {/*    options={{headerShown: false}}*/}
+                    {/*/>*/}
+
+                    <Stack.Screen
+                        name="MyTabs"
+                        // @ts-ignore
+                        component={MyTabs}
+                        options={{headerShown: false}}
+                    />
+
+                    <Stack.Screen
+                        name="WebInApp"
+                        // @ts-ignore
+                        component={WebInApp}
+                        options={{headerShown: true, headerTitle: 'Car decode'}}
+                    />
+                    <Stack.Screen
+                        name="EnViLib"
+                        // @ts-ignore
+                        component={EnViLib}
+                        options={{headerShown: true, headerTitle: 'Từ điển chuyên ngành'}}
+                    />
+                    <Stack.Screen
+                        name="TechCar"
+                        // @ts-ignore
+                        component={TechCar}
+                        options={{headerShown: true, headerTitle: 'Tổng hợp kỹ thuật'}}
+                    />
+
+                    <Stack.Screen
+                        name="ListImages"
+                        // @ts-ignore
+                        component={ListImages}
+                        options={{headerShown: true, headerTitle: 'Thư viện ảnh'}}
+                    />
+
+                    <Stack.Screen
+                        name="TechCarDetail"
+                        // @ts-ignore
+                        component={TechCarDetail}
+                        options={{headerShown: true, headerTitle: 'Chi tiết kỹ thuật'}}
+                    />
+
+                    <Stack.Screen
+                        name="NewLog"
+                        // @ts-ignore
+                        component={NewLog}
+                        options={{headerShown: true, headerTitle: 'Nội dung Chia sẻ'}}
+                    />
+
+                    <Stack.Screen
+                        name="EnViLibLocal"
+                        // @ts-ignore
+                        component={EnViLibLocal}
+                        options={{headerShown: true, headerTitle: 'Từ điển tùy chỉnh'}}
+                    />
+
+                </Stack.Navigator>
+            </NavigationContainer>
+            <FlashMessage position="top" />
+        </>
+    );
+}
 
 export default App;

@@ -7368,6 +7368,11 @@ react-native-drawer-layout@^4.1.12:
   dependencies:
     use-latest-callback "^0.2.4"
 
+react-native-edge-to-edge@^1.6.2:
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/react-native-edge-to-edge/-/react-native-edge-to-edge-1.6.2.tgz#5b93632b9afa8e7afaca1c0508807664820465fe"
+  integrity sha512-koEF6WRAfdGNelXlP7NtHrQhFGtplwciYNWLHOCTCk0Thc7dlxtqxHRYSA5vPJgWOEkVBFqxcoOqKwAtqOmLNw==
+
 react-native-fast-image@^8.6.3:
   version "8.6.3"
   resolved "https://registry.yarnpkg.com/react-native-fast-image/-/react-native-fast-image-8.6.3.tgz#6edc3f9190092a909d636d93eecbcc54a8822255"
@@ -7389,6 +7394,11 @@ react-native-gesture-handler@^2.27.1:
     "@egjs/hammerjs" "^2.0.17"
     hoist-non-react-statics "^3.3.0"
     invariant "^2.2.4"
+
+react-native-html-parser@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-html-parser/-/react-native-html-parser-0.1.0.tgz#c35de1dc325562da26e68befa423bac34505ba48"
+  integrity sha512-G5d0pk7TA9YgjVJhLRf2zMOOf1HXd8ItM9JYsTS2pXoEfSRfMfRU5iTj03LGwvHU2NT9kc18NDJeLgZY6+Bbvg==
 
 react-native-image-pan-zoom@^2.1.12:
   version "2.1.12"

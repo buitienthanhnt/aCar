@@ -153,7 +153,7 @@ function App(): React.JSX.Element {
 
     return (
         <>
-          <StatusBar barStyle="dark-content" backgroundColor="blue" />
+            <StatusBar barStyle="default" backgroundColor="gray" />
             <NavigationContainer ref={navigationRef}>
                 {/*https://reactnavigation.org/docs/drawer-navigator/*/}
                 {/*https://dev.to/easybuoy/combining-stack-tab-drawer-navigations-in-react-native-with-react-navigation-5-da*/}

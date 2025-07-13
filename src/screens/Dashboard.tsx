@@ -47,7 +47,6 @@ const Dashboard = () => {
             loadData: fecthData,
         }}>
             <View className={'flex-1 bg-ink100 pt-1 px-1'}>
-              <StatusBar barStyle="dark-content" backgroundColor="violet" />
                 <Content />
                 <AddStatus />
             </View>

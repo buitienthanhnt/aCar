@@ -38,6 +38,7 @@ import Dashboard from '@screens/Dashboard';
 import NewLog from '@screens/NewLog';
 import FlashMessage from 'react-native-flash-message';
 import EnViLibLocal from '@screens/EnViLibLocal';
+import AcScreen from "@screens/AcScreen.tsx";
 
 const Stack = createNativeStackNavigator();
 
@@ -218,6 +219,13 @@ function App(): React.JSX.Element {
                         component={EnViLibLocal}
                         options={{headerShown: true, headerTitle: 'Từ điển tùy chỉnh'}}
                     />
+
+                  <Stack.Screen
+                    name="AcScreen"
+                    // @ts-ignore
+                    component={AcScreen}
+                    options={{headerShown: true, headerTitle: 'Điều hòa(A/c)'}}
+                  />
 
                 </Stack.Navigator>
             </NavigationContainer>

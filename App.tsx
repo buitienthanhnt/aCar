@@ -62,6 +62,7 @@ function MyDrawer() {
     return (
         <Drawer.Navigator id={undefined}
             defaultStatus="closed"
+            detachInactiveScreens={false} // fix: react-navigation/drawer flicker(https://github.com/react-navigation/react-navigation/issues/12035)
             screenOptions={{
                 drawerType: isLargeScreen ? 'permanent' : 'back',
                 drawerStyle: {
